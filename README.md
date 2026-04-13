@@ -60,7 +60,7 @@ src/
 
 ## Como Começar
 
-> **Importante:** Esta aplicação depende do [Revisei Backend](link-do-seu-repo-aqui) para funcionar. Certifique-se de que o servidor esteja rodando antes de iniciar o frontend.
+> **Importante:** Esta aplicação depende do [Revisei Backend](https://github.com/LuisFPamplona/back-end-revisei.git) para funcionar. Certifique-se de que o servidor esteja rodando antes de iniciar o frontend.
 
 ### Pré-requisitos
 - Node.js (v18 ou superior)
