@@ -76,11 +76,22 @@ src/
    # Clone o Backend (em outra pasta)
    git clone https://github.com/LuisFPamplona/back-end-revisei.git
 
-👤 Autor
+
+# Entre na pasta do projeto
+cd front-end-revisei
+
+# Instale as dependências
+npm install
+
+# Inicie o servidor
+npm run dev
+
+
+## 👤 Autor
 Luis Pamplona
 
 LinkedIn: www.linkedin.com/in/luis-pamplona-552030310
 
-GitHub: @LuisFPamplona
+GitHub: [@LuisFPamplona](https://github.com/LuisFPamplona)
 
 Feito com ❤️ para um aprendizado melhor.
