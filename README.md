@@ -1,4 +1,4 @@
-## Revisei 📚
+## Revisei 
 O Revisei é uma aplicação web moderna de gerenciamento de estudos, projetada para ajudar estudantes a organizar sua jornada de aprendizado. Os usuários podem gerenciar matérias e acompanhar tópicos específicos, garantindo um fluxo de revisão consistente e organizado.
 
 ## Funcionalidades
@@ -58,21 +58,23 @@ src/
 
 ```
 
-## Instalação
-Clone o repositório:
+## Como Começar
 
-Bash
-git clone https://github.com/seu-usuario/revisei-frontend.git
-Instale as dependências:
+> **Importante:** Esta aplicação depende do [Revisei Backend](link-do-seu-repo-aqui) para funcionar. Certifique-se de que o servidor esteja rodando antes de iniciar o frontend.
 
-Bash
-npm install
-Inicie o servidor de desenvolvimento:
+### Pré-requisitos
+- Node.js (v18 ou superior)
+- Backend do projeto em execução
 
-Bash
-npm run dev
-Acesse o app:
-Abra http://localhost:5173 no seu navegador.
+### Instalação
+
+1. **Clone os repositórios:**
+   ```bash
+   # Clone o Frontend
+   git clone https://github.com/LuisFPamplona/front-end-revisei.git
+   
+   # Clone o Backend (em outra pasta)
+   git clone https://github.com/LuisFPamplona/back-end-revisei.git
 
 👤 Autor
 Luis Pamplona
