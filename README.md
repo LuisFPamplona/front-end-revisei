@@ -1,73 +1,84 @@
-# React + TypeScript + Vite
+## Revisei 📚
+O Revisei é uma aplicação web moderna de gerenciamento de estudos, projetada para ajudar estudantes a organizar sua jornada de aprendizado. Os usuários podem gerenciar matérias e acompanhar tópicos específicos, garantindo um fluxo de revisão consistente e organizado.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Funcionalidades
+Dashboard Pessoal: Uma visão clara e objetiva do seu progresso nos estudos.
 
-Currently, two official plugins are available:
+Gerenciamento de Matérias: Crie e organize diferentes disciplinas de estudo.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Acompanhamento de Tópicos: Fragmente suas matérias em tópicos específicos para um foco detalhado.
 
-## React Compiler
+Fluxo de Autenticação Moderno: Telas de Login e Registro seguras com uma interface (UI/UX) polida.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Design Responsivo: Experiência totalmente otimizada para dispositivos móveis e desktop.
 
-## Expanding the ESLint configuration
+## Próximas Implementações (Roadmap)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+O Revisei está em constante evolução. Estas são as funcionalidades planejadas para as próximas etapas do desenvolvimento:
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- [ ] **Página Detalhada da Matéria:** Visualização focada onde o usuário poderá gerenciar os tópicos específicos de cada disciplina.
+- [ ] **Sistema de Revisão Espaçada:** Implementação de lógica para sugerir revisões baseadas no tempo desde o último estudo.
+- [ ] **Gráficos de Desempenho:** Dashboard visual com estatísticas de tópicos concluídos vs. pendentes.
+- [ ] **Pesquisa e Filtros:** Funcionalidade para buscar matérias e tópicos rapidamente.
+- [ ] **Modo Escuro:** Suporte a temas para maior conforto visual durante estudos noturnos.
+- [ ] **Upload de Arquivos:** Possibilidade de anexar PDFs ou imagens de resumos diretamente nos tópicos.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Tecnologias Utilizadas
+Frontend: React + TypeScript
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Estilização: Tailwind CSS
+
+Ícones: Lucide React
+
+Roteamento: React Router Dom
+
+Integração com Backend: Fetch API com camadas de serviço customizadas.
+
+## Visualização
+<div align="center">
+<img src="https://i.imgur.com/ec3lhtm.png" alt="Subjects Desktop Screen" width="900">
+
+
+<img src="https://i.imgur.com/IwiMIsQ.png" alt="Login Mobile Screen" width="300">
+<img src="https://i.imgur.com/h5lDSId.png" alt="Register Mobile Screen" width="300">
+<img src="https://i.imgur.com/815T3mD.png" alt="Subjects Mobile Screen" width="300">
+</div>
+
+## Estrutura do Projeto
+O projeto segue uma arquitetura modular para facilitar a manutenção:
+
+```text
+src/
+├── components/ # Componentes de UI reutilizáveis (Cards, Inputs, Sidebar)
+├── pages/      # Views da aplicação (Home, Login, Register)
+├── services/   # Lógica de integração com a API
+├── types/      # Interfaces e tipos TypeScript
+├── utils/      # Funções auxiliares e validadores
+└── routes/     # Configuração de navegação e rotas
+
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Instalação
+Clone o repositório:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Bash
+git clone https://github.com/seu-usuario/revisei-frontend.git
+Instale as dependências:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Bash
+npm install
+Inicie o servidor de desenvolvimento:
+
+Bash
+npm run dev
+Acesse o app:
+Abra http://localhost:5173 no seu navegador.
+
+👤 Autor
+Luis Pamplona
+
+LinkedIn: www.linkedin.com/in/luis-pamplona-552030310
+
+GitHub: @LuisFPamplona
+
+Feito com ❤️ para um aprendizado melhor.
