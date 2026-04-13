@@ -3,7 +3,7 @@ import type { Subject } from "../types/user";
 
 const URL = "http://localhost:3000";
 
-export const getSubjects = async (): Promise<ApiResponse<Subject>> => {
+export const getSubjects = async (): Promise<ApiResponse<Subject[]>> => {
   const token = localStorage.getItem("token") || "";
   try {
     const res = await fetch(`${URL}/subjects`, {
@@ -14,7 +14,7 @@ export const getSubjects = async (): Promise<ApiResponse<Subject>> => {
       },
     });
 
-    const data: ApiResponse<Subject> = await res.json();
+    const data: ApiResponse<Subject[]> = await res.json();
 
     if (!data.success) {
       console.log("Erro ao buscar matérias");
