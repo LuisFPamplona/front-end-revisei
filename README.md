@@ -1,6 +1,15 @@
 ## Revisei 
 O Revisei é uma aplicação web moderna de gerenciamento de estudos, projetada para ajudar estudantes a organizar sua jornada de aprendizado. Os usuários podem gerenciar matérias e acompanhar tópicos específicos, garantindo um fluxo de revisão consistente e organizado.
 
+## Visualização
+<div align="center">
+<img src="https://i.imgur.com/z3tto2x.png" alt="Subjects Desktop Screen" width="900">
+
+
+<img src="https://i.imgur.com/jlTiA4K.png" alt="Subjects Mobile Screen" width="300">
+
+</div>
+
 ## Funcionalidades
 Dashboard Pessoal: Uma visão clara e objetiva do seu progresso nos estudos.
 
@@ -16,7 +25,7 @@ Design Responsivo: Experiência totalmente otimizada para dispositivos móveis e
 
 O Revisei está em constante evolução. Estas são as funcionalidades planejadas para as próximas etapas do desenvolvimento:
 
-- [ ] **Página Detalhada da Matéria:** Visualização focada onde o usuário poderá gerenciar os tópicos específicos de cada disciplina.
+- [x] **Página Detalhada da Matéria:** Visualização focada onde o usuário poderá gerenciar os tópicos específicos de cada disciplina.
 - [ ] **Sistema de Revisão Espaçada:** Implementação de lógica para sugerir revisões baseadas no tempo desde o último estudo.
 - [ ] **Gráficos de Desempenho:** Dashboard visual com estatísticas de tópicos concluídos vs. pendentes.
 - [ ] **Pesquisa e Filtros:** Funcionalidade para buscar matérias e tópicos rapidamente.
@@ -34,15 +43,6 @@ Roteamento: React Router Dom
 
 Integração com Backend: Fetch API com camadas de serviço customizadas.
 
-## Visualização
-<div align="center">
-<img src="https://i.imgur.com/ec3lhtm.png" alt="Subjects Desktop Screen" width="900">
-
-
-<img src="https://i.imgur.com/IwiMIsQ.png" alt="Login Mobile Screen" width="300">
-<img src="https://i.imgur.com/h5lDSId.png" alt="Register Mobile Screen" width="300">
-<img src="https://i.imgur.com/815T3mD.png" alt="Subjects Mobile Screen" width="300">
-</div>
 
 ## Estrutura do Projeto
 O projeto segue uma arquitetura modular para facilitar a manutenção:
