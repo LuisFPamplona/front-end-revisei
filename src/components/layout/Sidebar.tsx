@@ -19,7 +19,7 @@ const Sidebar = () => {
       {!isOpen && (
         <button
           onClick={toggleSidebar}
-          className="fixed top-4 left-4 z-50 p-2 text-white bg-[#806ECD] rounded-md transition-colors cursor-pointer"
+          className="fixed top-4 left-4 z-40 p-2 text-white bg-[#806ECD] rounded-md transition-colors cursor-pointer"
         >
           <Menu size={24} />
         </button>

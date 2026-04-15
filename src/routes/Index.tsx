@@ -4,7 +4,6 @@ import Register from "../pages/Register";
 import PrivateRoutes from "./PrivateRoutes";
 import Home from "../pages/Home";
 import Subjects from "../pages/Subjects/Subjects";
-import AddSubject from "../pages/Subjects/AddSubject";
 
 export const AppRoutes = () => {
   return (
@@ -18,7 +17,6 @@ export const AppRoutes = () => {
             <Route path="/home" element={<Home />} />
             <Route path="*" element={<Home />} />
             <Route path="/subjects" element={<Subjects />} />
-            <Route path="/add-subject" element={<AddSubject />} />
           </Route>
         </Routes>
       </BrowserRouter>
