@@ -3,7 +3,7 @@ import { validateLoginData } from "../utils/validateLoginData";
 import { login } from "../services/authServices";
 import { useNavigate } from "react-router-dom";
 import FormInput from "../components/FormInput";
-import { LogIn, UserPlus } from "lucide-react"; // Para dar um tchan visual
+import { LogIn, UserPlus } from "lucide-react"; 
 
 const Login = () => {
   const [email, setEmail] = useState<string>("");
@@ -11,7 +11,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   const loginSubmit = async (
-    e: React.FormEvent<HTMLFormElement>, // Pequeno ajuste no tipo do evento
+    e: React.FormEvent<HTMLFormElement>, 
     email: string,
     password: string,
   ) => {

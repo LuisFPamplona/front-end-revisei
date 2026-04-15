@@ -8,8 +8,7 @@ export type Subject = {
   id: string;
   name: string;
   userId: string;
+  _count?: { topics: number };
 };
 
-export type Topic = {
-  title: string;
-};
+//PASSAR O ARRAY DE TOPICS PARA O SUBJECT PARA FACILITAR MINHA VIDA NO FUTURO

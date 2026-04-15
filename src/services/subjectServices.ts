@@ -28,6 +28,33 @@ export const getSubjects = async (): Promise<ApiResponse<Subject[]>> => {
   }
 };
 
+export const getSpecificSubject = async (
+  id: string,
+): Promise<ApiResponse<Subject>> => {
+  const token = localStorage.getItem("token") || "";
+
+  try {
+    const res = await fetch(`${URL}/subjects/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const data: ApiResponse<Subject> = await res.json();
+
+    if (!data.success) {
+      return { success: false, message: data.message };
+    }
+
+    return data;
+  } catch (error) {
+    console.log(error);
+    return { success: false, message: "Erro no servidor" };
+  }
+};
+
 export const createSubject = async (
   name: string,
 ): Promise<ApiResponse<Subject>> => {
@@ -56,4 +83,26 @@ export const createSubject = async (
 
 export const updateSubject = async () => {};
 
-export const deleteSubject = async () => {};
+export const deleteSubject = async (
+  id: string,
+): Promise<ApiResponse<Subject>> => {
+  try {
+    const token = localStorage.getItem("token");
+
+    const res = await fetch(`${URL}/subjects/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const data: ApiResponse<Subject> = await res.json();
+    if (!data.success) {
+      return { success: false, message: "Erro ao deletar matéria" };
+    }
+
+    return data;
+  } catch (error) {
+    return { success: false, message: "Erro no servidor" };
+  }
+};
