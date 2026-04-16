@@ -9,6 +9,7 @@ interface SubjectCardProps {
   name: string;
   topicCount?: number;
 
+  onDelete: (id: string) => void;
   toggle: () => void;
   setSubject: Dispatch<SetStateAction<Subject>>;
 }
@@ -20,6 +21,7 @@ export const SubjectCard = ({
   topicCount = 0,
   toggle,
   setSubject,
+  onDelete,
 }: SubjectCardProps) => {
   const handleDelete = async (id: string) => {
     const data = await deleteSubject(id);
@@ -29,7 +31,7 @@ export const SubjectCard = ({
       return;
     }
 
-    return data;
+    onDelete(id);
   };
   return (
     <div className="group relative w-92 h-42 bg-white border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-md hover:border-[#806ECD]/50 transition-all duration-300">
