@@ -2,6 +2,7 @@ export type User = {
   name: string;
   email: string;
   subjects: Subject[];
+  dailyGoal: Number;
   _count?: { subjects: number };
 };
 
