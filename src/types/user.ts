@@ -2,6 +2,7 @@ export type User = {
   name: string;
   email: string;
   subjects: Subject[];
+  _count?: { subjects: number };
 };
 
 export type Subject = {
@@ -10,5 +11,3 @@ export type Subject = {
   userId: string;
   _count?: { topics: number };
 };
-
-//PASSAR O ARRAY DE TOPICS PARA O SUBJECT PARA FACILITAR MINHA VIDA NO FUTURO

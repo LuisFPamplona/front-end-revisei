@@ -9,16 +9,17 @@ export const AppRoutes = () => {
   return (
     <>
       <BrowserRouter>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-
-          <Route element={<PrivateRoutes />}>
-            <Route path="/home" element={<Home />} />
-            <Route path="*" element={<Home />} />
-            <Route path="/subjects" element={<Subjects />} />
-          </Route>
-        </Routes>
+        <main className="flex-1">
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route element={<PrivateRoutes />}>
+              <Route path="/home" element={<Home />} />
+              <Route path="*" element={<Home />} />
+              <Route path="/subjects" element={<Subjects />} />
+            </Route>
+          </Routes>
+        </main>
       </BrowserRouter>
     </>
   );

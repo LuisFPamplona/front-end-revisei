@@ -1,4 +1,3 @@
-import Sidebar from "../../components/layout/Sidebar";
 import { SubjectCard } from "../../components/SubjectCard";
 import { useEffect, useState } from "react";
 import type { Subject } from "../../types/user";
@@ -7,6 +6,7 @@ import { createSubject, getSubjects } from "../../services/subjectServices";
 import { Plus } from "lucide-react";
 import SubjectDetails from "../../components/SubjectDetails";
 import { AddSubjectForm } from "../../components/AddSubjectForm";
+import Sidebar from "../../components/layout/Sidebar";
 
 const Subjects = () => {
   const [isSubjectDetailsOpen, setIsSubjectDetailsOpen] = useState(false);
@@ -52,6 +52,7 @@ const Subjects = () => {
         toggle={toggleSubjectDetails}
         display={isSubjectDetailsOpen}
       />
+
       <Sidebar />
 
       <section className="min-h-screen w-full md:pl-64 flex flex-col items-center overflow-x-hidden">
@@ -60,7 +61,7 @@ const Subjects = () => {
             <h1 className="text-3xl font-bold text-gray-800">Matérias</h1>
             <div className="h-1 w-[30%] bg-[#806ECD] rounded-full mt-2"></div>
           </div>
-          <div className="grid gap-2 pb-16 md:grid-cols-4">
+          <div className="grid gap-2 pb-6 md:grid-cols-4">
             {subjects.map((item) => {
               return (
                 <SubjectCard
@@ -83,7 +84,7 @@ const Subjects = () => {
           {!isAdding && (
             <button
               onClick={() => setIsAdding(true)}
-              className="flex-1 flex w-92 items-center justify-center gap-2 bg-[#806ECD] hover:bg-[#6b5bb3] text-white font-semibold py-3 rounded-xl transition-colors cursor-pointer"
+              className="flex-1 flex w-92 mb-12 items-center justify-center gap-2 bg-[#806ECD] hover:bg-[#6b5bb3] text-white font-semibold py-3 rounded-xl transition-colors cursor-pointer"
             >
               <Plus className="w-5 h-5" /> Adicionar Matéria
             </button>
