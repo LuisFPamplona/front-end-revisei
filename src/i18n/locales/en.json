@@ -171,7 +171,8 @@
     "securityModalDescription": "Confirm your current password to define a new one.",
     "dailyGoalModalTitle": "Daily goal",
     "dailyGoalModalDescription": "Define how many topics you want to study per day.",
-    "userFallback": "User"
+    "userFallback": "User",
+    "editGoal": "Edit"
   },
   "configForms": {
     "saveChanges": "Save Changes",

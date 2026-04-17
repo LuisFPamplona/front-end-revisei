@@ -171,7 +171,8 @@
     "securityModalDescription": "Confirme sua senha atual para definir uma nova.",
     "dailyGoalModalTitle": "Meta diaria",
     "dailyGoalModalDescription": "Defina quantos topicos deseja estudar por dia.",
-    "userFallback": "Usuario"
+    "userFallback": "Usuario",
+    "editGoal": "Editar"
   },
   "configForms": {
     "saveChanges": "Salvar Alteracoes",
