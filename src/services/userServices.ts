@@ -1,22 +1,35 @@
 import type { ApiResponse } from "../types/api";
-import type { User } from "../types/user";
-
-const URL = "http://localhost:3000";
+import type { UpdateUserData, User } from "../types/user";
+import { API_URL, fetchWithAuth } from "./apiClient";
 
 export const getMe = async (): Promise<ApiResponse<User>> => {
-  const token = localStorage.getItem("token");
-
   try {
-    const res = await fetch(`${URL}/user`, {
+    const res = await fetchWithAuth(`${API_URL}/user`, {
       method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
     });
 
     const data: ApiResponse<User> = await res.json();
     return data;
-  } catch (error) {
+  } catch {
     return { success: false, message: "Erro ao carregar perfil" };
+  }
+};
+
+export const updateMe = async (
+  payload: UpdateUserData,
+): Promise<ApiResponse<User>> => {
+  try {
+    const res = await fetchWithAuth(`${API_URL}/user`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+
+    const data: ApiResponse<User> = await res.json();
+    return data;
+  } catch {
+    return { success: false, message: "Erro ao atualizar perfil" };
   }
 };

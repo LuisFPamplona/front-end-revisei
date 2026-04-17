@@ -1,0 +1,184 @@
+{
+  "common": {
+    "appName": "Revisei",
+    "or": "or",
+    "back": "Back",
+    "save": "Save",
+    "cancel": "Cancel",
+    "loading": "Loading..."
+  },
+  "language": {
+    "label": "Language",
+    "pt": "Portugues",
+    "en": "English"
+  },
+  "validation": {
+    "nameRequired": "Enter your name.",
+    "emailRequired": "Enter your email.",
+    "emailInvalid": "Enter a valid email.",
+    "passwordRequired": "Enter your password.",
+    "passwordMinLength": "Password must be at least 8 characters long.",
+    "passwordUppercase": "Password must contain at least 1 uppercase letter.",
+    "passwordSpecial": "Password must contain at least 1 special character.",
+    "subjectNameRequired": "Enter the subject name.",
+    "topicTitleRequired": "Enter the topic title.",
+    "currentPasswordRequired": "Enter your current password.",
+    "confirmPasswordMismatch": "Password confirmation does not match.",
+    "dailyGoalInvalid": "Daily goal must be an integer greater than 0."
+  },
+  "errors": {
+    "login": "Could not sign in to your account.",
+    "register": "Could not complete sign up.",
+    "loadDashboard": "Could not load dashboard.",
+    "loadSubjects": "Could not load subjects.",
+    "createSubject": "Could not create subject.",
+    "deleteSubject": "Could not delete subject.",
+    "loadTopics": "Could not load topics.",
+    "createTopic": "Could not create topic.",
+    "deleteTopic": "Could not delete topic.",
+    "updateTopic": "Could not update topic.",
+    "loadProfile": "Could not load profile.",
+    "updateProfile": "Could not update profile.",
+    "updatePassword": "Could not update password.",
+    "updateDailyGoal": "Could not update daily goal."
+  },
+  "success": {
+    "login": "Signed in successfully.",
+    "register": "Account created successfully. You can now sign in.",
+    "subjectCreated": "Subject created successfully.",
+    "subjectDeleted": "Subject deleted successfully.",
+    "topicCreated": "Topic created successfully.",
+    "topicDeleted": "Topic deleted successfully.",
+    "topicUpdated": "Topic updated successfully.",
+    "profileUpdated": "Profile updated successfully.",
+    "passwordUpdated": "Password updated successfully.",
+    "dailyGoalUpdated": "Daily goal updated successfully."
+  },
+  "form": {
+    "name": "Name",
+    "email": "Email",
+    "password": "Password",
+    "currentPassword": "Current password",
+    "newPassword": "New password",
+    "confirmPassword": "Confirm new password",
+    "dailyGoal": "Daily goal",
+    "placeholders": {
+      "default": "Enter your {{label}}...",
+      "name": "Your full name",
+      "email": "example@email.com",
+      "password": "Create a strong password",
+      "currentPassword": "Enter your current password",
+      "newPassword": "Create a new password",
+      "confirmPassword": "Repeat your new password",
+      "subjectName": "Subject name...",
+      "topicTitle": "Topic title...",
+      "dailyGoal": "Ex: 5"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Welcome to Revisei",
+      "subtitle": "Organize your studies in a simple way",
+      "submit": "Sign in",
+      "submitting": "Signing in...",
+      "createAccount": "Create account now",
+      "footer": "© 2026 Revisei - Your study portfolio"
+    },
+    "register": {
+      "title": "Create your account",
+      "subtitle": "Join Revisei and start organizing your studies.",
+      "submit": "Sign up on Revisei",
+      "submitting": "Signing up...",
+      "alreadyHaveAccount": "Already have an account?",
+      "loginAction": "Sign in",
+      "footer": "Get ready to succeed",
+      "passwordRulesTitle": "Your password must have:",
+      "passwordRules": {
+        "minLength": "At least 8 characters",
+        "uppercase": "At least 1 uppercase letter",
+        "special": "At least 1 special character"
+      }
+    }
+  },
+  "sidebar": {
+    "home": "Home",
+    "subjects": "Subjects",
+    "configs": "Settings",
+    "logout": "Sign out"
+  },
+  "home": {
+    "greeting": "Good evening! 👋",
+    "subtitle": "Your current progress on",
+    "stats": {
+      "subjects": "Subjects",
+      "completed": "Completed",
+      "pending": "Pending"
+    },
+    "progressTitle": "Overall Progress",
+    "mastery": "Mastery",
+    "finishedTopics": "{{completed}} of {{total}} topics completed",
+    "focusNow": "Focus Now 👇",
+    "allCaughtUp": "Everything is up to date! ✨"
+  },
+  "subjects": {
+    "title": "My Subjects",
+    "searchPlaceholder": "Search subject...",
+    "newSubject": "New Subject",
+    "emptyTitle": "No subjects yet",
+    "emptyDescription": "Start by adding the subjects you want to organize today.",
+    "topicCount_one": "{{count}} topic registered",
+    "topicCount_other": "{{count}} topics registered",
+    "viewTopics": "View topics"
+  },
+  "subjectDetails": {
+    "subtitle": "Manage your topics",
+    "totalTopics": "Total topics: {{done}} / {{total}} ({{percent}}%)",
+    "addTopic": "Add Topic"
+  },
+  "topicStatus": {
+    "concluido": "Completed",
+    "pendente": "Pending",
+    "revisar": "Review"
+  },
+  "topicCard": {
+    "startReview": "Start review"
+  },
+  "review": {
+    "exit": "Exit",
+    "focusTime": "Focused time dedicated to this topic.",
+    "studyTipTitle": "Study Tip",
+    "studyTipDescription": "Review your key points and, if you are ready, mark it as completed to update your dashboard progress!",
+    "stillUnsure": "Still unsure",
+    "markCompleted": "Mark Completed"
+  },
+  "configs": {
+    "title": "Settings",
+    "subtitle": "Manage your profile and study preferences",
+    "editProfile": "Edit Profile",
+    "editProfileDescription": "Name, email, and profile picture",
+    "security": "Security",
+    "securityDescription": "Change password and authentication",
+    "preferences": "Preferences",
+    "dailyGoal": "Daily Goal",
+    "dailyGoalValue": "{{count}} topics per day",
+    "darkMode": "Dark Mode",
+    "about": "About Revisei",
+    "aboutDescription": "Version 1.0.0 - Beta",
+    "logout": "Sign out",
+    "profileModalTitle": "Edit profile",
+    "profileModalDescription": "Update your name and email.",
+    "securityModalTitle": "Security",
+    "securityModalDescription": "Confirm your current password to define a new one.",
+    "dailyGoalModalTitle": "Daily goal",
+    "dailyGoalModalDescription": "Define how many topics you want to study per day.",
+    "userFallback": "User"
+  },
+  "configForms": {
+    "saveChanges": "Save Changes",
+    "saving": "Saving...",
+    "updatePassword": "Update Password",
+    "saveGoal": "Save Goal",
+    "passwordHint": "Your new password must have at least 8 characters, 1 uppercase letter, and 1 special character.",
+    "dailyGoalHint": "Define how many topics you want to study per day."
+  }
+}

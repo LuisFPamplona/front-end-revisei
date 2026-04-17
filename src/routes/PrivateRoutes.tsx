@@ -1,40 +1,32 @@
 import { useEffect, useState } from "react";
 import { Navigate, Outlet } from "react-router-dom";
+import { AUTH_EXPIRED_EVENT, validateToken } from "../services/apiClient";
 
 const PrivateRoutes = () => {
-  const [loading, setLoading] = useState(true);
-  const [tokenIsValid, setTokenIsValid] = useState(false);
+  const [tokenIsValid, setTokenIsValid] = useState<boolean | null>(null);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const handleTokenValidation = async () => {
+      const isValid = await validateToken();
 
-    if (!token) {
+      setTokenIsValid(isValid);
+    };
+
+    const handleAuthExpired = () => {
       setTokenIsValid(false);
-      setLoading(false);
-      return;
-    }
+    };
 
-    fetch("http://localhost:3000/auth/validate", {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then(() => {
-        setTokenIsValid(true);
-      })
-      .catch(() => {
-        localStorage.removeItem("token");
-        setTokenIsValid(false);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    handleTokenValidation();
+    window.addEventListener(AUTH_EXPIRED_EVENT, handleAuthExpired);
+
+    return () => {
+      window.removeEventListener(AUTH_EXPIRED_EVENT, handleAuthExpired);
+    };
   }, []);
 
-  if (loading) return null;
+  if (tokenIsValid === null) return null;
 
-  return tokenIsValid ? <Outlet /> : <Navigate to={"/login"} />;
+  return tokenIsValid ? <Outlet /> : <Navigate to="/login" replace />;
 };
 
 export default PrivateRoutes;
