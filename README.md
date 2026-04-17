@@ -1,97 +1,226 @@
-## Revisei 
-O Revisei é uma aplicação web moderna de gerenciamento de estudos, projetada para ajudar estudantes a organizar sua jornada de aprendizado. Os usuários podem gerenciar matérias e acompanhar tópicos específicos, garantindo um fluxo de revisão consistente e organizado.
+# Revisei
 
-## Visualização
-<div align="center">
-<img src="https://i.imgur.com/z3tto2x.png" alt="Subjects Desktop Screen" width="900">
+Aplicação web para organização de estudos, permitindo ao usuário criar matérias, gerenciar tópicos e acompanhar seu progresso de forma simples e eficiente.
 
+**Aplicação em produção:** https://revisei.vercel.app/ <br>
+**Backend (API):** https://github.com/LuisFPamplona/back-end-revisei
 
-<img src="https://i.imgur.com/jlTiA4K.png" alt="Subjects Mobile Screen" width="300">
+---
 
-</div>
+## Preview
+
+<p align="center">
+  <img src="./docs/demo.gif" width="800"/>
+</p>
+<h3>Telas</h3>
+<p align="center">
+  <img src="./docs/login.png" width="400"/>
+  <img src="./docs/dashboard.png" width="400"/>
+  <img src="./docs/subjects.png" width="400"/>
+  <img src="./docs/subject.png" width="400"/>
+  <img src="./docs/review.png" width="400"/>
+  <img src="./docs/configs.png" width="400"/>
+</p>
+
+---
 
 ## Funcionalidades
-Dashboard Pessoal: Uma visão clara e objetiva do seu progresso nos estudos.
 
-Gerenciamento de Matérias: Crie e organize diferentes disciplinas de estudo.
+* Autenticação de usuários (registro e login)
+* Criação e gerenciamento de matérias (subjects)
+* Organização de tópicos por matéria
+* Controle de status dos tópicos (pendente, revisar, concluído)
+* Sessão de revisão com cronômetro
+* Internacionalização (i18n)
+* Sistema de loading global integrado às requisições
+* Feedback ao usuário com notificações (toasts)
+* Configurações de conta:
 
-Acompanhamento de Tópicos: Fragmente suas matérias em tópicos específicos para um foco detalhado.
+  * Atualização de perfil
+  * Alteração de senha
+  * Definição de meta diária
 
-Fluxo de Autenticação Moderno: Telas de Login e Registro seguras com uma interface (UI/UX) polida.
+---
 
-Design Responsivo: Experiência totalmente otimizada para dispositivos móveis e desktop.
+## Arquitetura
 
-## Próximas Implementações (Roadmap)
+O projeto é dividido em frontend e backend independentes, comunicando-se via API REST.
 
-O Revisei está em constante evolução. Estas são as funcionalidades planejadas para as próximas etapas do desenvolvimento:
+### Frontend
 
-- [x] **Página Detalhada da Matéria:** Visualização focada onde o usuário poderá gerenciar os tópicos específicos de cada disciplina.
-- [ ] **Sistema de Revisão Espaçada:** Implementação de lógica para sugerir revisões baseadas no tempo desde o último estudo.
-- [ ] **Gráficos de Desempenho:** Dashboard visual com estatísticas de tópicos concluídos vs. pendentes.
-- [ ] **Pesquisa e Filtros:** Funcionalidade para buscar matérias e tópicos rapidamente.
-- [ ] **Modo Escuro:** Suporte a temas para maior conforto visual durante estudos noturnos.
-- [ ] **Upload de Arquivos:** Possibilidade de anexar PDFs ou imagens de resumos diretamente nos tópicos.
+* React com TypeScript
+* Vite como bundler
+* Context API para gerenciamento de estado global
+* Sistema de loading global desacoplado da árvore de componentes
+* Internacionalização com i18next
+* Camada de requisição centralizada (`fetchWithAuth`)
 
-## Tecnologias Utilizadas
-Frontend: React + TypeScript
+### Backend
 
-Estilização: Tailwind CSS
+* Node.js com Express
+* Prisma ORM
+* Autenticação baseada em JWT
+* Middleware para proteção de rotas
+* Estrutura modular (routes, controllers, services)
 
-Ícones: Lucide React
+### Banco de Dados
 
-Roteamento: React Router Dom
+* PostgreSQL (Neon)
 
-Integração com Backend: Fetch API com camadas de serviço customizadas.
+### Infraestrutura
 
+* Vercel (Frontend)
+* Render (Backend)
+* Neon (Banco de dados)
 
-## Estrutura do Projeto
-O projeto segue uma arquitetura modular para facilitar a manutenção:
+---
 
-```text
+## Tecnologias utilizadas
+
+### Frontend
+
+* React
+* TypeScript
+* Vite
+* i18next
+* react-toastify
+
+### Backend
+
+* Node.js
+* Express
+* Prisma
+* JSON Web Token (JWT)
+* bcrypt
+
+---
+
+## Estrutura do projeto
+
+### Frontend
+
+```txt
 src/
-├── components/ # Componentes de UI reutilizáveis (Cards, Inputs, Sidebar)
-├── pages/      # Views da aplicação (Home, Login, Register)
-├── services/   # Lógica de integração com a API
-├── types/      # Interfaces e tipos TypeScript
-├── utils/      # Funções auxiliares e validadores
-└── routes/     # Configuração de navegação e rotas
-
+  components/
+  contexts/
+  services/
+  config/
+  pages/
+  i18n/
 ```
 
-## Como Começar
+### Backend
 
-> **Importante:** Esta aplicação depende do [Revisei Backend](https://github.com/LuisFPamplona/back-end-revisei.git) para funcionar. Certifique-se de que o servidor esteja rodando antes de iniciar o frontend.
+```txt
+src/
+  routes/
+  controllers/
+  middlewares/
+  services/
+  prisma/
+```
 
-### Pré-requisitos
-- Node.js (v18 ou superior)
-- Backend do projeto em execução
+---
 
-### Instalação
+## Como rodar o projeto localmente
 
-1. **Clone os repositórios:**
-   ```bash
-   # Clone o Frontend
-   git clone https://github.com/LuisFPamplona/front-end-revisei.git
-   
-   # Clone o Backend (em outra pasta)
-   git clone https://github.com/LuisFPamplona/back-end-revisei.git
+### 1. Clonar os repositórios
 
+```bash
+git clone https://github.com/LuisFPamplona/front-end-revisei
+git clone https://github.com/LuisFPamplona/back-end-revisei
+```
 
-# Entre na pasta do projeto
-cd front-end-revisei
+---
 
-# Instale as dependências
+### 2. Backend
+
+```bash
+cd back-end-revisei
 npm install
+```
 
-# Inicie o servidor
+Crie um arquivo `.env`:
+
+```env
+DATABASE_URL=your_database_url
+JWT_SECRET=your_secret
+```
+
+Execute:
+
+```bash
+npx prisma db push
 npm run dev
+```
 
+---
 
-## 👤 Autor
+### 3. Frontend
+
+```bash
+cd front-end-revisei
+npm install
+```
+
+Crie um arquivo `.env.local`:
+
+```env
+VITE_API_URL=http://localhost:3000
+```
+
+Execute:
+
+```bash
+npm run dev
+```
+
+---
+
+## Variáveis de ambiente
+
+### Frontend
+
+* `VITE_API_URL`: URL da API backend
+
+### Backend
+
+* `DATABASE_URL`: string de conexão com o banco PostgreSQL
+* `JWT_SECRET`: chave secreta para geração de tokens
+
+---
+
+## Diferenciais do projeto
+
+* Sistema de loading global integrado à camada de requisições
+* Separação clara entre frontend e backend
+* Estrutura escalável e modular
+* Internacionalização desde a base da aplicação
+* Deploy completo em ambiente de produção
+
+---
+
+## Decisões técnicas
+
+* Uso de `fetchWithAuth` para centralizar autenticação e tratamento de requisições
+* Implementação de loading global desacoplado do React para evitar inconsistências com múltiplas requisições simultâneas
+* Utilização de i18next para suporte a múltiplos idiomas desde o início
+* Separação de responsabilidades no backend (routes, controllers, middlewares)
+
+---
+
+## Próximas melhorias
+
+* Biblioteca de matérias (templates pré-definidos)
+* Dashboard com métricas de progresso
+* Melhorias de responsividade para dispositivos móveis
+* Sistema de notificações mais avançado
+
+---
+
+## Autor
+
 Luis Pamplona
 
-LinkedIn: www.linkedin.com/in/luis-pamplona-552030310
-
-GitHub: [@LuisFPamplona](https://github.com/LuisFPamplona)
-
-Feito com ❤️ para um aprendizado melhor.
+LinkedIn: www.linkedin.com/in/luis-pamplona-552030310 <br>
+GitHub: @LuisFPamplona
