@@ -7,44 +7,51 @@ import {
   ChevronRight,
   Smartphone,
   Target,
-  Loader2,
+  Languages,
 } from "lucide-react";
 import Sidebar from "../components/layout/Sidebar";
-import { getMe } from "../services/userServices"; // Certifique-se do path
+import { logout } from "../services/authServices";
+import { getMe } from "../services/userServices";
 import type { User } from "../types/user";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import ConfigModal from "../components/configs/ConfigModal";
+import ProfileSettingsForm from "../components/configs/ProfileSettingsForm";
+import SecuritySettingsForm from "../components/configs/SecuritySettingsForm";
+import DailyGoalForm from "../components/configs/DailyGoalForm";
+import { useTranslation } from "react-i18next";
+
+type ActiveModal = "profile" | "security" | "daily-goal" | null;
 
 export default function Configs() {
   const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
   const [darkMode, setDarkMode] = useState(false);
+  const [activeModal, setActiveModal] = useState<ActiveModal>(null);
   const navigate = useNavigate();
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     const fetchUser = async () => {
       const data = await getMe();
-      if (data.success && data.data) {
-        setUser(data.data);
-      }
 
-      setLoading(false);
+      if (data.success) {
+        setUser(data.data);
+      } else {
+        toast.error(data.message || t("errors.loadProfile"));
+      }
     };
 
-    fetchUser();
-  }, []);
+    void fetchUser();
+  }, [t]);
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
+    logout();
     navigate("/login");
   };
 
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen md:ml-64">
-        <Loader2 className="w-8 h-8 text-[#806ECD] animate-spin" />
-      </div>
-    );
-  }
+  const handleUserUpdated = (updatedUser: User) => {
+    setUser(updatedUser);
+  };
 
   return (
     <div className="min-h-screen mb-12 md:mb-0 md:ml-64 bg-slate-50/50">
@@ -53,23 +60,20 @@ export default function Configs() {
       <main className="p-4 md:p-10 pt-20 md:pt-10 max-w-3xl mx-auto">
         <header className="mb-8">
           <h1 className="text-3xl font-bold text-slate-800 tracking-tight">
-            Configurações
+            {t("configs.title")}
           </h1>
-          <p className="text-slate-500">
-            Gerencie seu perfil e preferências de estudo
-          </p>
+          <p className="text-slate-500">{t("configs.subtitle")}</p>
         </header>
 
         <div className="space-y-6">
-          {/* SEÇÃO 1: PERFIL */}
           <section className="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
             <div className="p-6 border-b border-slate-50 flex items-center gap-4">
               <div className="w-16 h-16 bg-[#806ECD] rounded-full flex items-center justify-center text-white text-2xl font-bold shadow-lg shadow-purple-200">
-                {user?.name?.charAt(0).toUpperCase()}
+                {user?.name?.charAt(0).toUpperCase() || "U"}
               </div>
               <div>
                 <h2 className="text-lg font-bold text-slate-800">
-                  {user?.name || "Usuário"}
+                  {user?.name || t("configs.userFallback")}
                 </h2>
                 <p className="text-sm text-slate-500">{user?.email}</p>
               </div>
@@ -77,21 +81,22 @@ export default function Configs() {
 
             <ConfigItem
               icon={UserIcon}
-              label="Editar Perfil"
-              description="Nome, e-mail e foto de perfil"
+              label={t("configs.editProfile")}
+              description={t("configs.editProfileDescription")}
+              onClick={() => setActiveModal("profile")}
             />
             <ConfigItem
               icon={Lock}
-              label="Segurança"
-              description="Alterar senha e autenticação"
+              label={t("configs.security")}
+              description={t("configs.securityDescription")}
+              onClick={() => setActiveModal("security")}
             />
           </section>
 
-          {/* SEÇÃO 2: ESTUDOS & APP */}
           <section className="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
             <div className="px-6 py-4 bg-slate-50/50">
               <h3 className="text-xs font-bold text-slate-400 uppercase tracking-widest">
-                Preferências
+                {t("configs.preferences")}
               </h3>
             </div>
 
@@ -101,15 +106,41 @@ export default function Configs() {
                   <Target size={20} />
                 </div>
                 <div>
-                  <p className="font-semibold text-slate-700">Meta Diária</p>
+                  <p className="font-semibold text-slate-700">
+                    {t("configs.dailyGoal")}
+                  </p>
                   <p className="text-xs text-slate-500">
-                    {String(user?.dailyGoal) || "0"} tópicos por dia
+                    {t("configs.dailyGoalValue", {
+                      count: Number(user?.dailyGoal || 0),
+                    })}
                   </p>
                 </div>
               </div>
-              <button className="text-[#806ECD] text-sm font-bold hover:underline">
-                Ajustar
+              <button
+                onClick={() => setActiveModal("daily-goal")}
+                className="text-[#806ECD] text-sm font-bold hover:underline cursor-pointer"
+              >
+                {t("common.save")}
               </button>
+            </div>
+
+            <div className="flex items-center justify-between p-4 px-6 border-b border-slate-50">
+              <div className="flex items-center gap-4">
+                <div className="p-2 bg-amber-50 text-amber-600 rounded-lg">
+                  <Languages size={20} />
+                </div>
+                <p className="font-semibold text-slate-700">
+                  {t("language.label")}
+                </p>
+              </div>
+              <select
+                value={i18n.resolvedLanguage || "pt"}
+                onChange={(e) => void i18n.changeLanguage(e.target.value)}
+                className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-[#806ECD]/15 focus:border-[#806ECD]"
+              >
+                <option value="pt">{t("language.pt")}</option>
+                <option value="en">{t("language.en")}</option>
+              </select>
             </div>
 
             <div className="flex items-center justify-between p-4 px-6">
@@ -117,7 +148,9 @@ export default function Configs() {
                 <div className="p-2 bg-purple-50 text-[#806ECD] rounded-lg">
                   <Moon size={20} />
                 </div>
-                <p className="font-semibold text-slate-700">Modo Escuro</p>
+                <p className="font-semibold text-slate-700">
+                  {t("configs.darkMode")}
+                </p>
               </div>
               <label className="relative inline-flex items-center cursor-pointer">
                 <input
@@ -131,12 +164,11 @@ export default function Configs() {
             </div>
           </section>
 
-          {/* SEÇÃO 3: SUPORTE & SAIR */}
           <section className="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
             <ConfigItem
               icon={Smartphone}
-              label="Sobre o Revisei"
-              description="Versão 1.0.0 - Beta"
+              label={t("configs.about")}
+              description={t("configs.aboutDescription")}
             />
             <button
               onClick={handleLogout}
@@ -145,18 +177,67 @@ export default function Configs() {
               <div className="p-2 bg-red-50 rounded-lg text-red-500">
                 <LogOut size={20} />
               </div>
-              <span className="font-bold">Sair da conta</span>
+              <span className="font-bold">{t("configs.logout")}</span>
             </button>
           </section>
         </div>
       </main>
+
+      {activeModal === "profile" && user ? (
+        <ConfigModal
+          title={t("configs.profileModalTitle")}
+          description={t("configs.profileModalDescription")}
+          onClose={() => setActiveModal(null)}
+        >
+          <ProfileSettingsForm
+            user={user}
+            onClose={() => setActiveModal(null)}
+            onSuccess={handleUserUpdated}
+          />
+        </ConfigModal>
+      ) : null}
+
+      {activeModal === "security" && user ? (
+        <ConfigModal
+          title={t("configs.securityModalTitle")}
+          description={t("configs.securityModalDescription")}
+          onClose={() => setActiveModal(null)}
+        >
+          <SecuritySettingsForm
+            onClose={() => setActiveModal(null)}
+            onSuccess={handleUserUpdated}
+          />
+        </ConfigModal>
+      ) : null}
+
+      {activeModal === "daily-goal" && user ? (
+        <ConfigModal
+          title={t("configs.dailyGoalModalTitle")}
+          description={t("configs.dailyGoalModalDescription")}
+          onClose={() => setActiveModal(null)}
+        >
+          <DailyGoalForm
+            user={user}
+            onClose={() => setActiveModal(null)}
+            onSuccess={handleUserUpdated}
+          />
+        </ConfigModal>
+      ) : null}
     </div>
   );
 }
 
-function ConfigItem({ icon: Icon, label, description }: any) {
+function ConfigItem({
+  icon: Icon,
+  label,
+  description,
+  onClick,
+}: any) {
   return (
-    <button className="w-full flex items-center justify-between p-4 px-6 hover:bg-slate-50 transition-colors border-b border-slate-50 last:border-0 group cursor-pointer">
+    <button
+      onClick={onClick}
+      className="w-full flex items-center justify-between p-4 px-6 hover:bg-slate-50 transition-colors border-b border-slate-50 last:border-0 group cursor-pointer"
+    >
       <div className="flex items-center gap-4 text-left">
         <div className="p-2 bg-slate-100 text-slate-500 group-hover:bg-[#806ECD]/10 group-hover:text-[#806ECD] rounded-lg transition-colors">
           <Icon size={20} />

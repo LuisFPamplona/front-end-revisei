@@ -1,16 +1,18 @@
 import { useState } from "react";
 import { Menu, X, Home, BookOpen, Settings, LogOut } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
+import { logout } from "../../services/authServices";
+import { useTranslation } from "react-i18next";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   const toggleSidebar = () => setIsOpen(!isOpen);
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
+    logout();
     navigate("/login");
   };
 
@@ -38,7 +40,9 @@ const Sidebar = () => {
       >
         <div className="flex flex-col h-full">
           <div className="flex items-center justify-between p-4 border-b">
-            <span className="text-[#806ECD] font-bold text-xl">Revisei</span>
+            <span className="text-[#806ECD] font-bold text-xl">
+              {t("common.appName")}
+            </span>
             <button
               onClick={toggleSidebar}
               className="p-1 hover:bg-gray-100 rounded cursor-pointer md:hidden"
@@ -49,25 +53,25 @@ const Sidebar = () => {
 
           <nav className="flex-1 p-4 space-y-2">
             <Link
-              to={"/home"}
+              to="/home"
               className="flex items-center gap-3 p-3 text-gray-700 hover:bg-purple-50 hover:text-[#806ECD] rounded-lg transition-all"
             >
               <Home size={20} />
-              <span>Início</span>
+              <span>{t("sidebar.home")}</span>
             </Link>
             <Link
-              to={"/subjects"}
+              to="/subjects"
               className="flex items-center gap-3 p-3 text-gray-700 hover:bg-purple-50 hover:text-[#806ECD] rounded-lg transition-all"
             >
               <BookOpen size={20} />
-              <span>Matérias</span>
+              <span>{t("sidebar.subjects")}</span>
             </Link>
             <Link
-              to={"/configs"}
+              to="/configs"
               className="flex items-center gap-3 p-3 text-gray-700 hover:bg-purple-50 hover:text-[#806ECD] rounded-lg transition-all"
             >
               <Settings size={20} />
-              <span>Configurações</span>
+              <span>{t("sidebar.configs")}</span>
             </Link>
           </nav>
 
@@ -77,7 +81,7 @@ const Sidebar = () => {
               onClick={handleLogout}
             >
               <LogOut size={20} />
-              <span>Sair</span>
+              <span>{t("sidebar.logout")}</span>
             </button>
           </div>
         </div>

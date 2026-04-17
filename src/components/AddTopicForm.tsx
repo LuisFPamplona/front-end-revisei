@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Check, X } from "lucide-react";
+import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 interface AddTopicFormProps {
   onConfirm: (title: string) => void;
@@ -8,12 +10,16 @@ interface AddTopicFormProps {
 
 export const AddTopicForm = ({ onConfirm, onCancel }: AddTopicFormProps) => {
   const [title, setTitle] = useState("");
+  const { t } = useTranslation();
 
   const handleSubmit = () => {
-    if (title.trim()) {
-      onConfirm(title);
-      setTitle("");
+    if (!title.trim()) {
+      toast.error(t("validation.topicTitleRequired"));
+      return;
     }
+
+    onConfirm(title);
+    setTitle("");
   };
 
   return (
@@ -21,7 +27,7 @@ export const AddTopicForm = ({ onConfirm, onCancel }: AddTopicFormProps) => {
       <input
         autoFocus
         type="text"
-        placeholder="Título do tópico..."
+        placeholder={t("form.placeholders.topicTitle")}
         className="w-full p-2 bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#806ECD]"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
@@ -32,7 +38,7 @@ export const AddTopicForm = ({ onConfirm, onCancel }: AddTopicFormProps) => {
           onClick={handleSubmit}
           className="flex-1 flex items-center cursor-pointer justify-center gap-1 bg-[#806ECD] text-white py-2 rounded-lg hover:bg-[#6b5bb3] transition-colors text-sm font-bold"
         >
-          <Check className="w-4 h-4" /> Confirmar
+          <Check className="w-4 h-4" /> {t("common.save")}
         </button>
         <button
           onClick={onCancel}

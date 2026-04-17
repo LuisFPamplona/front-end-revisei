@@ -10,6 +10,9 @@ import {
   updateTopic,
 } from "../services/topicServices";
 import { AddTopicForm } from "./AddTopicForm";
+import ReviewSession from "./ReviewSession";
+import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 interface SubjectDetailsProps {
   subject: Subject;
@@ -20,32 +23,49 @@ interface SubjectDetailsProps {
 const SubjectDetails = ({ subject, toggle, display }: SubjectDetailsProps) => {
   const [topics, setTopics] = useState<Topic[]>([]);
   const [isAdding, setIsAdding] = useState(false);
+  const [activeTopic, setActiveTopic] = useState<Topic | null>(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const loadTopics = async () => {
       const data = await getTopics(subject.id);
-      if (!data.success) return;
+
+      if (!data.success) {
+        toast.error(data.message || t("errors.loadTopics"));
+        return;
+      }
+
       setTopics(data.data);
     };
-    if (display) loadTopics();
-  }, [subject, display]);
+
+    if (display) {
+      void loadTopics();
+    }
+  }, [display, subject.id, t]);
 
   const handleAddTopic = async (title: string) => {
     const data = await createTopic(title, subject.id);
-    if (!data.success) return;
 
-    setTopics([...topics, data.data]);
+    if (!data.success) {
+      toast.error(data.message || t("errors.createTopic"));
+      return;
+    }
+
+    setTopics((prev) => [...prev, data.data]);
     setIsAdding(false);
+    toast.success(t("success.topicCreated"));
   };
 
   const handleDelete = async (id: string) => {
     const data = await deleteTopic(id);
 
     if (!data.success) {
-      return { success: false, message: "Erro ao deletar tópico." };
+      toast.error(data.message || t("errors.deleteTopic"));
+      return;
     }
 
     setTopics((prev) => prev.filter((topic) => topic.id !== id));
+    toast.success(t("success.topicDeleted"));
   };
 
   const handleUpdate = async (id: string, status: TopicStatus) => {
@@ -62,7 +82,8 @@ const SubjectDetails = ({ subject, toggle, display }: SubjectDetailsProps) => {
     const data = await updateTopic(id, updatedStatus);
 
     if (!data.success) {
-      return { success: false, message: "Erro ao modificar tópico." };
+      toast.error(data.message || t("errors.updateTopic"));
+      return;
     }
 
     setTopics((prev) =>
@@ -70,9 +91,10 @@ const SubjectDetails = ({ subject, toggle, display }: SubjectDetailsProps) => {
         topic.id === id ? { ...topic, status: updatedStatus } : topic,
       ),
     );
+    toast.success(t("success.topicUpdated"));
   };
 
-  const doneTopics = topics.filter((i) => i.status === "concluido");
+  const doneTopics = topics.filter((topic) => topic.status === "concluido");
   const donePercent =
     topics.length > 0
       ? Math.round((doneTopics.length / topics.length) * 100)
@@ -102,7 +124,7 @@ const SubjectDetails = ({ subject, toggle, display }: SubjectDetailsProps) => {
                 <h2 className="text-2xl font-bold text-gray-800 leading-tight">
                   {subject.name}
                 </h2>
-                <p className="text-gray-500">Gerencie seus tópicos</p>
+                <p className="text-gray-500">{t("subjectDetails.subtitle")}</p>
               </div>
             </div>
             <button
@@ -116,8 +138,11 @@ const SubjectDetails = ({ subject, toggle, display }: SubjectDetailsProps) => {
           <div className="px-6 mb-4 shrink-0">
             <div className="flex justify-between text-sm mb-2">
               <span className="font-medium text-gray-700">
-                Total tópicos: {doneTopics.length} / {topics.length} (
-                {donePercent}%)
+                {t("subjectDetails.totalTopics", {
+                  done: doneTopics.length,
+                  total: topics.length,
+                  percent: donePercent,
+                })}
               </span>
             </div>
             <div className="w-full bg-gray-100 rounded-full h-2">
@@ -136,6 +161,7 @@ const SubjectDetails = ({ subject, toggle, display }: SubjectDetailsProps) => {
                   topic={topic}
                   handleDelete={handleDelete}
                   handleUpdate={handleUpdate}
+                  onStartReview={(selectedTopic) => setActiveTopic(selectedTopic)}
                 />
               ))}
 
@@ -143,6 +169,17 @@ const SubjectDetails = ({ subject, toggle, display }: SubjectDetailsProps) => {
                 <AddTopicForm
                   onConfirm={handleAddTopic}
                   onCancel={() => setIsAdding(false)}
+                />
+              )}
+
+              {activeTopic && (
+                <ReviewSession
+                  topic={activeTopic}
+                  onClose={() => setActiveTopic(null)}
+                  onFinish={(id, status) => {
+                    void handleUpdate(id, status);
+                    setActiveTopic(null);
+                  }}
                 />
               )}
             </div>
@@ -154,7 +191,7 @@ const SubjectDetails = ({ subject, toggle, display }: SubjectDetailsProps) => {
                 onClick={() => setIsAdding(true)}
                 className="flex-1 flex items-center justify-center gap-2 bg-[#806ECD] hover:bg-[#6b5bb3] text-white font-semibold py-3 rounded-xl transition-colors cursor-pointer"
               >
-                <Plus className="w-5 h-5" /> Adicionar Tópico
+                <Plus className="w-5 h-5" /> {t("subjectDetails.addTopic")}
               </button>
             )}
           </div>

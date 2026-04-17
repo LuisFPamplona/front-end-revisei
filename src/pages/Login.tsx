@@ -1,30 +1,45 @@
 import { useState } from "react";
-import { validateLoginData } from "../utils/validateLoginData";
 import { login } from "../services/authServices";
 import { useNavigate } from "react-router-dom";
 import FormInput from "../components/FormInput";
-import { LogIn, UserPlus } from "lucide-react"; 
+import { LogIn, UserPlus } from "lucide-react";
+import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
+import { validateLoginData } from "../utils/validateLoginData";
 
 const Login = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const loginSubmit = async (
-    e: React.FormEvent<HTMLFormElement>, 
-    email: string,
-    password: string,
+    e: React.FormEvent<HTMLFormElement>,
+    currentEmail: string,
+    currentPassword: string,
   ) => {
     e.preventDefault();
 
-    if (!validateLoginData(email, password)) {
-      return console.log("Erro ao validar dados de login.");
+    const validation = validateLoginData(currentEmail, currentPassword);
+
+    if (!validation.isValid) {
+      validation.errors.forEach((error) => toast.error(t(error)));
+      return;
     }
 
-    const data = await login({ email, password });
+    setIsSubmitting(true);
+
+    const data = await login({ email: currentEmail, password: currentPassword });
+
     if (data.success) {
+      toast.success(t("success.login"));
       navigate("/home");
+    } else {
+      toast.error(data.message || t("errors.login"));
     }
+
+    setIsSubmitting(false);
   };
 
   return (
@@ -35,11 +50,9 @@ const Login = () => {
             <span className="text-white text-3xl font-bold italic">R</span>
           </div>
           <h1 className="text-2xl font-bold text-gray-800">
-            Bem-vindo ao Revisei
+            {t("auth.login.title")}
           </h1>
-          <p className="text-gray-500 text-sm">
-            Organize seus estudos de forma simples
-          </p>
+          <p className="text-gray-500 text-sm">{t("auth.login.subtitle")}</p>
         </div>
 
         <form
@@ -47,17 +60,30 @@ const Login = () => {
           onSubmit={(e) => loginSubmit(e, email, password)}
         >
           <div className="flex flex-col gap-4">
-            <FormInput label="Email" type="text" setState={setEmail} />
-            <FormInput label="Senha" type="password" setState={setPassword} />
+            <FormInput
+              label={t("form.email")}
+              type="text"
+              setState={setEmail}
+              placeholder={t("form.placeholders.email")}
+            />
+            <FormInput
+              label={t("form.password")}
+              type="password"
+              setState={setPassword}
+              placeholder={t("form.placeholders.password")}
+            />
 
             <button
               type="submit"
+              disabled={isSubmitting}
               className="w-full h-12 bg-[#806ECD] text-white font-semibold rounded-xl 
                          hover:bg-[#6b5bb3] active:scale-[0.98] transition-all 
-                         shadow-md hover:shadow-[#806ECD]/20 flex items-center justify-center gap-2 cursor-pointer"
+                         shadow-md hover:shadow-[#806ECD]/20 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed"
             >
               <LogIn size={20} />
-              Entrar
+              {isSubmitting
+                ? t("auth.login.submitting")
+                : t("auth.login.submit")}
             </button>
           </div>
         </form>
@@ -67,7 +93,7 @@ const Login = () => {
             <div className="w-full border-t border-gray-200"></div>
           </div>
           <span className="relative px-4 text-sm text-gray-400 bg-white">
-            ou
+            {t("common.or")}
           </span>
         </div>
 
@@ -78,12 +104,12 @@ const Login = () => {
                      flex items-center justify-center gap-2 cursor-pointer"
         >
           <UserPlus size={20} />
-          Criar conta agora
+          {t("auth.login.createAccount")}
         </button>
       </div>
 
       <p className="mt-8 text-gray-400 text-xs tracking-widest uppercase">
-        © 2026 Revisei - Seu portfólio de estudos
+        {t("auth.login.footer")}
       </p>
     </section>
   );

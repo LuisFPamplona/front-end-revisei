@@ -2,8 +2,16 @@ export type User = {
   name: string;
   email: string;
   subjects: Subject[];
-  dailyGoal: Number;
+  dailyGoal: number;
   _count?: { subjects: number };
+};
+
+export type UpdateUserData = {
+  name?: string;
+  email?: string;
+  password?: string;
+  currentPassword?: string;
+  dailyGoal?: number;
 };
 
 export type Subject = {

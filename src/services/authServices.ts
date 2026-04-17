@@ -1,15 +1,14 @@
 import type { LoginData, RegisterData } from "../types/auth";
 import type { ApiResponse } from "../types/api";
 import type { AuthResponse } from "../types/auth";
-
-const URL = "http://localhost:3000";
+import { API_URL, AUTH_TOKEN_KEY, clearAuthToken } from "./apiClient";
 
 export const login = async ({
   email,
   password,
 }: LoginData): Promise<ApiResponse<AuthResponse>> => {
   try {
-    const res = await fetch(`${URL}/auth/sessions`, {
+    const res = await fetch(`${API_URL}/auth/sessions`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -23,11 +22,11 @@ export const login = async ({
       return { success: false, message: data.message };
     }
 
-    localStorage.setItem("token", data.data.token);
+    localStorage.setItem(AUTH_TOKEN_KEY, data.data.token);
 
     return data;
-  } catch (error) {
-    return { success: false, message: "Erro de conexão" };
+  } catch {
+    return { success: false, message: "Erro de conexao" };
   }
 };
 
@@ -37,7 +36,7 @@ export const register = async ({
   password,
 }: RegisterData): Promise<ApiResponse<AuthResponse>> => {
   try {
-    const res = await fetch(`${URL}/auth/users`, {
+    const res = await fetch(`${API_URL}/auth/users`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -52,7 +51,11 @@ export const register = async ({
     }
 
     return data;
-  } catch (error) {
-    return { success: false, message: "Erro de conexão" };
+  } catch {
+    return { success: false, message: "Erro de conexao" };
   }
+};
+
+export const logout = () => {
+  clearAuthToken();
 };

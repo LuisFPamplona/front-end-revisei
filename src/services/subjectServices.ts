@@ -1,44 +1,36 @@
 import type { ApiResponse } from "../types/api";
 import type { Subject } from "../types/user";
-
-const URL = "http://localhost:3000";
+import { API_URL, fetchWithAuth } from "./apiClient";
 
 export const getSubjects = async (): Promise<ApiResponse<Subject[]>> => {
-  const token = localStorage.getItem("token") || "";
   try {
-    const res = await fetch(`${URL}/subjects`, {
+    const res = await fetchWithAuth(`${API_URL}/subjects`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
       },
     });
 
     const data: ApiResponse<Subject[]> = await res.json();
 
     if (!data.success) {
-      console.log("Erro ao buscar matérias");
       return { success: false, message: data.message };
     }
 
     return data;
-  } catch (error) {
-    console.log("Erro no servidor");
-    return { success: false, message: "" };
+  } catch {
+    return { success: false, message: "Erro no servidor" };
   }
 };
 
 export const getSpecificSubject = async (
   id: string,
 ): Promise<ApiResponse<Subject>> => {
-  const token = localStorage.getItem("token") || "";
-
   try {
-    const res = await fetch(`${URL}/subjects/${id}`, {
+    const res = await fetchWithAuth(`${API_URL}/subjects/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -49,8 +41,7 @@ export const getSpecificSubject = async (
     }
 
     return data;
-  } catch (error) {
-    console.log(error);
+  } catch {
     return { success: false, message: "Erro no servidor" };
   }
 };
@@ -58,13 +49,11 @@ export const getSpecificSubject = async (
 export const createSubject = async (
   name: string,
 ): Promise<ApiResponse<Subject>> => {
-  const token = localStorage.getItem("token");
   try {
-    const res = await fetch(`${URL}/subjects`, {
+    const res = await fetchWithAuth(`${API_URL}/subjects`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({ name }),
     });
@@ -76,7 +65,7 @@ export const createSubject = async (
     }
 
     return data;
-  } catch (error) {
+  } catch {
     return { success: false, message: "Erro no servidor" };
   }
 };
@@ -87,22 +76,18 @@ export const deleteSubject = async (
   id: string,
 ): Promise<ApiResponse<Subject>> => {
   try {
-    const token = localStorage.getItem("token");
-
-    const res = await fetch(`${URL}/subjects/${id}`, {
+    const res = await fetchWithAuth(`${API_URL}/subjects/${id}`, {
       method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
     });
 
     const data: ApiResponse<Subject> = await res.json();
+
     if (!data.success) {
-      return { success: false, message: "Erro ao deletar matéria" };
+      return { success: false, message: "Erro ao deletar materia" };
     }
 
     return data;
-  } catch (error) {
+  } catch {
     return { success: false, message: "Erro no servidor" };
   }
 };
