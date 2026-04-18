@@ -9,59 +9,59 @@
   },
   "language": {
     "label": "Idioma",
-    "pt": "Portugues",
+    "pt": "Português",
     "en": "English"
   },
   "validation": {
     "nameRequired": "Informe seu nome.",
     "emailRequired": "Informe seu e-mail.",
-    "emailInvalid": "Informe um e-mail valido.",
+    "emailInvalid": "Informe um e-mail válido.",
     "passwordRequired": "Informe sua senha.",
     "passwordMinLength": "A senha precisa ter pelo menos 8 caracteres.",
-    "passwordUppercase": "A senha precisa ter pelo menos 1 letra maiuscula.",
+    "passwordUppercase": "A senha precisa ter pelo menos 1 letra maiúscula.",
     "passwordSpecial": "A senha precisa ter pelo menos 1 caractere especial.",
-    "subjectNameRequired": "Informe o nome da materia.",
-    "topicTitleRequired": "Informe o titulo do topico.",
+    "subjectNameRequired": "Informe o nome da matéria.",
+    "topicTitleRequired": "Informe o título do tópico.",
     "currentPasswordRequired": "Informe sua senha atual.",
-    "confirmPasswordMismatch": "A confirmacao da senha nao confere.",
-    "dailyGoalInvalid": "A meta diaria deve ser um numero inteiro maior que 0."
+    "confirmPasswordMismatch": "A confirmação da senha não confere.",
+    "dailyGoalInvalid": "A meta diária deve ser um número inteiro maior que 0."
   },
   "errors": {
-    "login": "Nao foi possivel entrar na sua conta.",
-    "register": "Nao foi possivel concluir o cadastro.",
-    "loadDashboard": "Nao foi possivel carregar o dashboard.",
-    "loadSubjects": "Nao foi possivel carregar as materias.",
-    "createSubject": "Nao foi possivel criar a materia.",
-    "deleteSubject": "Nao foi possivel deletar a materia.",
-    "loadTopics": "Nao foi possivel carregar os topicos.",
-    "createTopic": "Nao foi possivel criar o topico.",
-    "deleteTopic": "Nao foi possivel deletar o topico.",
-    "updateTopic": "Nao foi possivel atualizar o topico.",
-    "loadProfile": "Nao foi possivel carregar o perfil.",
-    "updateProfile": "Nao foi possivel atualizar o perfil.",
-    "updatePassword": "Nao foi possivel atualizar a senha.",
-    "updateDailyGoal": "Nao foi possivel atualizar a meta diaria."
+    "login": "Não foi possível entrar na sua conta.",
+    "register": "Não foi possível concluir o cadastro.",
+    "loadDashboard": "Não foi possível carregar o dashboard.",
+    "loadSubjects": "Não foi possível carregar as matérias.",
+    "createSubject": "Não foi possível criar a matéria.",
+    "deleteSubject": "Não foi possível deletar a matéria.",
+    "loadTopics": "Não foi possível carregar os tópicos.",
+    "createTopic": "Não foi possível criar o tópico.",
+    "deleteTopic": "Não foi possível deletar o tópico.",
+    "updateTopic": "Não foi possível atualizar o tópico.",
+    "loadProfile": "Não foi possível carregar o perfil.",
+    "updateProfile": "Não foi possível atualizar o perfil.",
+    "updatePassword": "Não foi possível atualizar a senha.",
+    "updateDailyGoal": "Não foi possível atualizar a meta diária."
   },
   "success": {
     "login": "Login realizado com sucesso.",
-    "register": "Conta criada com sucesso. Agora voce pode fazer login.",
-    "subjectCreated": "Materia criada com sucesso.",
-    "subjectDeleted": "Materia deletada com sucesso.",
-    "topicCreated": "Topico criado com sucesso.",
-    "topicDeleted": "Topico deletado com sucesso.",
-    "topicUpdated": "Topico atualizado com sucesso.",
+    "register": "Conta criada com sucesso. Agora você pode fazer login.",
+    "subjectCreated": "Matéria criada com sucesso.",
+    "subjectDeleted": "Matéria deletada com sucesso.",
+    "topicCreated": "Tópico criado com sucesso.",
+    "topicDeleted": "Tópico deletado com sucesso.",
+    "topicUpdated": "Tópico atualizado com sucesso.",
     "profileUpdated": "Perfil atualizado com sucesso.",
     "passwordUpdated": "Senha atualizada com sucesso.",
-    "dailyGoalUpdated": "Meta diaria atualizada com sucesso."
+    "dailyGoalUpdated": "Meta diária atualizada com sucesso."
   },
   "form": {
     "name": "Nome",
-    "email": "Email",
+    "email": "E-mail",
     "password": "Senha",
     "currentPassword": "Senha atual",
     "newPassword": "Nova senha",
     "confirmPassword": "Confirmar nova senha",
-    "dailyGoal": "Meta diaria",
+    "dailyGoal": "Meta diária",
     "placeholders": {
       "default": "Digite seu {{label}}...",
       "name": "Seu nome completo",
@@ -70,8 +70,8 @@
       "currentPassword": "Digite sua senha atual",
       "newPassword": "Crie uma nova senha",
       "confirmPassword": "Repita a nova senha",
-      "subjectName": "Nome da materia...",
-      "topicTitle": "Titulo do topico...",
+      "subjectName": "Nome da matéria...",
+      "topicTitle": "Título do tópico...",
       "dailyGoal": "Ex: 5"
     }
   },
@@ -82,104 +82,121 @@
       "submit": "Entrar",
       "submitting": "Entrando...",
       "createAccount": "Criar conta agora",
-      "footer": "© 2026 Revisei - Seu portfolio de estudos"
+      "footer": "© 2026 Revisei - Seu portfólio de estudos"
     },
     "register": {
       "title": "Crie sua conta",
       "subtitle": "Junte-se ao Revisei e comece a organizar seus estudos.",
       "submit": "Cadastrar no Revisei",
       "submitting": "Cadastrando...",
-      "alreadyHaveAccount": "Ja tem uma conta?",
+      "alreadyHaveAccount": "Já tem uma conta?",
       "loginAction": "Fazer login",
-      "footer": "Prepare-se para a aprovacao",
+      "footer": "Prepare-se para a aprovação",
       "passwordRulesTitle": "Sua senha precisa ter:",
       "passwordRules": {
-        "minLength": "Minimo de 8 caracteres",
-        "uppercase": "Pelo menos 1 letra maiuscula",
+        "minLength": "Mínimo de 8 caracteres",
+        "uppercase": "Pelo menos 1 letra maiúscula",
         "special": "Pelo menos 1 caractere especial"
       }
     }
   },
   "sidebar": {
-    "home": "Inicio",
-    "subjects": "Materias",
-    "configs": "Configuracoes",
-    "logout": "Sair"
+    "home": "Início",
+    "subjects": "Matérias",
+    "configs": "Configurações",
+    "logout": "Sair",
+    "explore": "Explorar"
   },
   "home": {
     "greeting": "Boa noite! 👋",
     "subtitle": "Seu progresso atual no",
     "stats": {
-      "subjects": "Materias",
-      "completed": "Concluidos",
+      "subjects": "Matérias",
+      "completed": "Concluídos",
       "pending": "Pendentes"
     },
-    "progressTitle": "Progresso Geral",
-    "mastery": "Dominio",
-    "finishedTopics": "{{completed}} de {{total}} topicos finalizados",
-    "focusNow": "Focar Agora 👇",
+    "progressTitle": "Progresso geral",
+    "mastery": "Domínio",
+    "finishedTopics": "{{completed}} de {{total}} tópicos finalizados",
+    "focusNow": "Focar agora 👇",
     "allCaughtUp": "Tudo em dia por aqui! ✨"
   },
   "subjects": {
-    "title": "Minhas Materias",
-    "searchPlaceholder": "Buscar materia...",
-    "newSubject": "Nova Materia",
-    "emptyTitle": "Nenhuma materia ainda",
-    "emptyDescription": "Comece adicionando as disciplinas que voce quer organizar hoje.",
-    "topicCount_one": "{{count}} topico cadastrado",
-    "topicCount_other": "{{count}} topicos cadastrados",
-    "viewTopics": "Ver topicos"
+    "title": "Minhas matérias",
+    "searchPlaceholder": "Buscar matéria...",
+    "newSubject": "Nova matéria",
+    "emptyTitle": "Nenhuma matéria ainda",
+    "emptyDescription": "Comece adicionando as disciplinas que você quer organizar hoje.",
+    "topicCount_one": "{{count}} tópico cadastrado",
+    "topicCount_other": "{{count}} tópicos cadastrados",
+    "viewTopics": "Ver tópicos"
   },
   "subjectDetails": {
-    "subtitle": "Gerencie seus topicos",
-    "totalTopics": "Total topicos: {{done}} / {{total}} ({{percent}}%)",
-    "addTopic": "Adicionar Topico"
+    "subtitle": "Gerencie seus tópicos",
+    "totalTopics": "Total de tópicos: {{done}} / {{total}} ({{percent}}%)",
+    "addTopic": "Adicionar tópico"
   },
   "topicStatus": {
-    "concluido": "Concluido",
+    "concluido": "Concluído",
     "pendente": "Pendente",
     "revisar": "Revisar"
   },
   "topicCard": {
-    "startReview": "Iniciar revisao"
+    "startReview": "Iniciar revisão"
   },
   "review": {
     "exit": "Sair",
-    "focusTime": "Tempo de foco dedicado a este topico.",
-    "studyTipTitle": "Dica de Estudo",
-    "studyTipDescription": "Revise seus pontos principais e, se estiver pronto, marque como concluido para atualizar seu progresso no dashboard!",
-    "stillUnsure": "Ainda tenho duvida",
-    "markCompleted": "Marcar Concluido"
+    "focusTime": "Tempo de foco dedicado a este tópico.",
+    "studyTipTitle": "Dica de estudo",
+    "studyTipDescription": "Revise seus pontos principais e, se estiver pronto, marque como concluído para atualizar seu progresso no dashboard!",
+    "stillUnsure": "Ainda tenho dúvida",
+    "markCompleted": "Marcar como concluído"
   },
   "configs": {
-    "title": "Configuracoes",
-    "subtitle": "Gerencie seu perfil e preferencias de estudo",
-    "editProfile": "Editar Perfil",
+    "title": "Configurações",
+    "subtitle": "Gerencie seu perfil e preferências de estudo",
+    "editProfile": "Editar perfil",
     "editProfileDescription": "Nome, e-mail e foto de perfil",
-    "security": "Seguranca",
-    "securityDescription": "Alterar senha e autenticacao",
-    "preferences": "Preferencias",
-    "dailyGoal": "Meta Diaria",
-    "dailyGoalValue": "{{count}} topicos por dia",
-    "darkMode": "Modo Escuro",
+    "security": "Segurança",
+    "securityDescription": "Alterar senha e autenticação",
+    "preferences": "Preferências",
+    "dailyGoal": "Meta diária",
+    "dailyGoalValue": "{{count}} tópicos por dia",
+    "darkMode": "Modo escuro",
     "about": "Sobre o Revisei",
-    "aboutDescription": "Versao 1.0.0 - Beta",
+    "aboutDescription": "Versão 1.0.0 - Beta",
     "logout": "Sair da conta",
     "profileModalTitle": "Editar perfil",
     "profileModalDescription": "Atualize seu nome e e-mail.",
-    "securityModalTitle": "Seguranca",
+    "securityModalTitle": "Segurança",
     "securityModalDescription": "Confirme sua senha atual para definir uma nova.",
-    "dailyGoalModalTitle": "Meta diaria",
-    "dailyGoalModalDescription": "Defina quantos topicos deseja estudar por dia.",
-    "userFallback": "Usuario",
+    "dailyGoalModalTitle": "Meta diária",
+    "dailyGoalModalDescription": "Defina quantos tópicos deseja estudar por dia.",
+    "userFallback": "Usuário",
     "editGoal": "Editar"
   },
   "configForms": {
-    "saveChanges": "Salvar Alteracoes",
+    "saveChanges": "Salvar alterações",
     "saving": "Salvando...",
-    "updatePassword": "Atualizar Senha",
-    "saveGoal": "Salvar Meta",
-    "passwordHint": "A nova senha precisa ter pelo menos 8 caracteres, 1 letra maiuscula e 1 caractere especial.",
-    "dailyGoalHint": "Defina quantos topicos voce quer estudar por dia."
+    "updatePassword": "Atualizar senha",
+    "saveGoal": "Salvar meta",
+    "passwordHint": "A nova senha precisa ter pelo menos 8 caracteres, 1 letra maiúscula e 1 caractere especial.",
+    "dailyGoalHint": "Defina quantos tópicos você quer estudar por dia."
+  },
+  "explore": {
+    "title": "Explorar matérias",
+    "subtitle": "Encontre matérias e adicione direto à sua conta.",
+    "searchPlaceholder": "Buscar matéria...",
+    "noResults": "Nenhuma matéria encontrada",
+    "tryOther": "Tente outro termo ou categoria.",
+    "resultSingular": "matéria encontrada",
+    "resultPlural": "matérias encontradas",
+    "add": "Adicionar à conta",
+    "added": "Adicionada",
+    "alreadyAdded": "Na sua conta",
+    "explore.topicsWillBeAdded": "+ {{count}} tópicos inclusos",
+    "explore.topicsCreated": "{{count}} tópicos na sua conta",
+    "explore.addedWithTopics": "{{name}} adicionada com {{count}} tópicos!",
+    "explore.partialTopicsWarning": "Matéria adicionada, mas {{count}} tópico(s) não foram criados."
   }
 }

@@ -5,6 +5,7 @@ import PrivateRoutes from "./PrivateRoutes";
 import Home from "../pages/Home";
 import Subjects from "../pages/Subjects";
 import Configs from "../pages/Configs";
+import ExplorePage from "../pages/ExplorePage";
 
 export const AppRoutes = () => {
   return (
@@ -19,6 +20,7 @@ export const AppRoutes = () => {
               <Route path="*" element={<Home />} />
               <Route path="/subjects" element={<Subjects />} />
               <Route path="/configs" element={<Configs />} />
+              <Route path="/explore" element={<ExplorePage />} />
             </Route>
           </Routes>
         </main>

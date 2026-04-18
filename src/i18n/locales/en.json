@@ -104,10 +104,11 @@
     "home": "Home",
     "subjects": "Subjects",
     "configs": "Settings",
-    "logout": "Sign out"
+    "logout": "Sign out",
+    "explore": "Explore"
   },
   "home": {
-    "greeting": "Good evening! 👋",
+    "greeting": "Welcome back!",
     "subtitle": "Your current progress on",
     "stats": {
       "subjects": "Subjects",
@@ -117,8 +118,8 @@
     "progressTitle": "Overall Progress",
     "mastery": "Mastery",
     "finishedTopics": "{{completed}} of {{total}} topics completed",
-    "focusNow": "Focus Now 👇",
-    "allCaughtUp": "Everything is up to date! ✨"
+    "focusNow": "Focus Now ",
+    "allCaughtUp": "Everything is up to date! "
   },
   "subjects": {
     "title": "My Subjects",
@@ -181,5 +182,21 @@
     "saveGoal": "Save Goal",
     "passwordHint": "Your new password must have at least 8 characters, 1 uppercase letter, and 1 special character.",
     "dailyGoalHint": "Define how many topics you want to study per day."
+  },
+  "explore": {
+    "title": "Explore subjects",
+    "subtitle": "Find subjects and add them directly to your account.",
+    "searchPlaceholder": "Search subject...",
+    "noResults": "No subjects found",
+    "tryOther": "Try another term or category.",
+    "resultSingular": "subject found",
+    "resultPlural": "subjects found",
+    "add": "Add to account",
+    "added": "Added",
+    "alreadyAdded": "In your account",
+    "explore.topicsWillBeAdded": "+ {{count}} topics will be added",
+    "explore.topicsCreated": "{{count}} topics in your account",
+    "explore.addedWithTopics": "{{name}} added with {{count}} topics!",
+    "explore.partialTopicsWarning": "Subject added, but {{count}} topic(s) were not created."
   }
 }
