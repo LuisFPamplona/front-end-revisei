@@ -1,5 +1,13 @@
 import { useState } from "react";
-import { Menu, X, Home, BookOpen, Settings, LogOut } from "lucide-react";
+import {
+  Menu,
+  X,
+  Home,
+  BookOpen,
+  Settings,
+  LogOut,
+  LibraryBig,
+} from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../services/authServices";
 import { useTranslation } from "react-i18next";
@@ -65,6 +73,13 @@ const Sidebar = () => {
             >
               <BookOpen size={20} />
               <span>{t("sidebar.subjects")}</span>
+            </Link>
+            <Link
+              to="/explore"
+              className="flex items-center gap-3 p-3 text-gray-700 hover:bg-purple-50 hover:text-[#806ECD] rounded-lg transition-all"
+            >
+              <LibraryBig size={20} />
+              <span>{t("sidebar.explore")}</span>
             </Link>
             <Link
               to="/configs"
