@@ -8,17 +8,26 @@ import { AddSubjectForm } from "../components/AddSubjectForm";
 import Sidebar from "../components/layout/Sidebar";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
+import { useSearchParams } from "react-router-dom";
+
+const invalidSubject = {
+  id: "0",
+  name: "0",
+  userId: "0",
+};
 
 const Subjects = () => {
   const [isSubjectDetailsOpen, setIsSubjectDetailsOpen] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
   const [subjects, setSubjects] = useState<Subject[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [subjectDetail, setSubjectDetail] = useState<Subject>({
-    id: "0",
-    name: "0",
-    userId: "0",
-  });
+  const [subjectDetail, setSubjectDetail] = useState<Subject>(invalidSubject); // arrumar esse state aqui pra nao precisar desse invalidSubject
+
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const subjectId = searchParams.get("subject");
+  const topicId = searchParams.get("topic");
+
   const { t } = useTranslation();
 
   const toggleSubjectDetails = () =>
@@ -37,6 +46,18 @@ const Subjects = () => {
 
     void loadSubjects();
   }, [t]);
+
+  useEffect(() => {
+    const selected: Subject = subjects.filter((s) => s.id === subjectId)[0];
+    if (!selected) {
+      return;
+    }
+
+    setSubjectDetail(selected);
+    setIsSubjectDetailsOpen(true);
+
+    setSearchParams({});
+  }, [subjects, subjectId, setSearchParams]);
 
   const handleAddSubject = async (name: string) => {
     const data = await createSubject(name);
@@ -67,24 +88,25 @@ const Subjects = () => {
         subject={subjectDetail}
         toggle={toggleSubjectDetails}
         display={isSubjectDetailsOpen}
+        homeSelectedTopicId={topicId}
       />
 
       <section className="flex md:pl-64 flex-col min-h-screen">
-        <main className="p-4 mb-12 md:p-10 pt-20 md:pt-10 max-w-7xl w-full mx-auto">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+        <main className="p-4 mb-12 md:p-10 md:pt-10 max-w-7xl w-full mx-auto">
+          <div className="flex flex-col items-center md:flex-row md:items-center md:justify-between  gap-4 mb-8">
             <div>
               <h1 className="text-3xl font-bold text-slate-800 tracking-tight">
                 {t("subjects.title")}
               </h1>
-              <div className="h-1.5 w-12 bg-[#806ECD] rounded-full mt-2"></div>
+              <div className="h-1.5 w-26 bg-[#806ECD] rounded-full mt-2"></div>
             </div>
 
-            <div className="relative group">
+            <div className="relative group w-92">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-4 h-4 group-focus-within:text-[#806ECD]" />
               <input
                 type="text"
                 placeholder={t("subjects.searchPlaceholder")}
-                className="pl-10 pr-4 py-2 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#806ECD]/20 focus:border-[#806ECD] w-full md:w-64 transition-all shadow-sm"
+                className="pl-10 pr-4 py-2 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#806ECD]/20 focus:border-[#806ECD] w-full md:w-86 transition-all shadow-sm"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
@@ -95,7 +117,7 @@ const Subjects = () => {
             {!isAdding ? (
               <button
                 onClick={() => setIsAdding(true)}
-                className="group h-40 border-2 border-dashed border-slate-200 rounded-3xl flex flex-col items-center justify-center gap-3 text-slate-400 hover:border-[#806ECD] hover:text-[#806ECD] hover:bg-purple-50 transition-all cursor-pointer bg-white/50"
+                className="group h-46 w-92 border-2 border-dashed border-slate-200 rounded-3xl flex flex-col items-center justify-center gap-3 text-slate-400 hover:border-[#806ECD] hover:text-[#806ECD] hover:bg-purple-50 transition-all cursor-pointer bg-white/50"
               >
                 <div className="p-3 rounded-full bg-slate-100 group-hover:bg-[#806ECD] group-hover:text-white transition-all">
                   <Plus className="w-6 h-6" />

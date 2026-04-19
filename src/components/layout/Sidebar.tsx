@@ -1,28 +1,14 @@
 import { useState } from "react";
-import {
-  Menu,
-  X,
-  Home,
-  BookOpen,
-  Settings,
-  LogOut,
-  LibraryBig,
-} from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
-import { logout } from "../../services/authServices";
+import { Menu, X, Home, BookOpen, Settings, LibraryBig } from "lucide-react";
+import { Link } from "react-router-dom";
+
 import { useTranslation } from "react-i18next";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { t } = useTranslation();
-  const navigate = useNavigate();
 
   const toggleSidebar = () => setIsOpen(!isOpen);
-
-  const handleLogout = () => {
-    logout();
-    navigate("/login");
-  };
 
   return (
     <>
@@ -89,16 +75,6 @@ const Sidebar = () => {
               <span>{t("sidebar.configs")}</span>
             </Link>
           </nav>
-
-          <div className="p-4 border-t">
-            <button
-              className="flex items-center gap-3 w-full p-3 text-red-500 hover:bg-red-50 rounded-lg transition-all"
-              onClick={handleLogout}
-            >
-              <LogOut size={20} />
-              <span>{t("sidebar.logout")}</span>
-            </button>
-          </div>
         </div>
       </div>
     </>

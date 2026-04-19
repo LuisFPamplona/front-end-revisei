@@ -39,7 +39,7 @@ export const SubjectCard = ({
   };
 
   return (
-    <div className="group relative w-92 h-42 bg-white border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-md hover:border-[#806ECD]/50 transition-all duration-300">
+    <div className="group relative flex flex-col justify-between w-92 h-46 max-h-52 bg-white border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-md hover:border-[#806ECD]/50 transition-all duration-300">
       <div className="flex items-start justify-between">
         <div className="flex items-center gap-4">
           <div className="p-3 bg-purple-50 text-[#806ECD] rounded-lg group-hover:bg-[#806ECD] group-hover:text-white transition-colors duration-300">
