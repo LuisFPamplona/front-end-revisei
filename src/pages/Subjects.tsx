@@ -8,7 +8,7 @@ import { AddSubjectForm } from "../components/AddSubjectForm";
 import Sidebar from "../components/layout/Sidebar";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
-import { useSearchParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const invalidSubject = {
   id: "0",
@@ -23,14 +23,14 @@ const Subjects = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [subjectDetail, setSubjectDetail] = useState<Subject>(invalidSubject); // arrumar esse state aqui pra nao precisar desse invalidSubject
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const location = useLocation();
 
   const [homeSelectedTopicId, setHomeSelectedTopicId] = useState<string | null>(
     null,
   );
 
-  const subjectId = searchParams.get("subject");
-  const topicId = searchParams.get("topic");
+  const subjectId = location.state?.subjectId ?? null;
+  const topicId = location.state?.topicId ?? null;
 
   const { t } = useTranslation();
 
@@ -52,22 +52,16 @@ const Subjects = () => {
   }, [t]);
 
   useEffect(() => {
+    if (!subjectId) return;
+
     const selected: Subject = subjects.filter((s) => s.id === subjectId)[0];
-    if (!selected) {
-      return;
-    }
+
+    if (!selected) return;
 
     setSubjectDetail(selected);
-    setHomeSelectedTopicId(homeSelectedTopicId);
+    setHomeSelectedTopicId(topicId);
     setIsSubjectDetailsOpen(true);
-  }, [subjects, subjectId]);
-
-  useEffect(() => {
-    if (!isSubjectDetailsOpen) return;
-    if (!subjectId && !topicId) return;
-
-    setSearchParams({});
-  }, [isSubjectDetailsOpen, subjectId, topicId, setSearchParams]);
+  }, [subjects, subjectId, topicId]);
 
   const handleAddSubject = async (name: string) => {
     const data = await createSubject(name);
@@ -98,7 +92,7 @@ const Subjects = () => {
         subject={subjectDetail}
         toggle={toggleSubjectDetails}
         display={isSubjectDetailsOpen}
-        homeSelectedTopicId={topicId}
+        homeSelectedTopicId={homeSelectedTopicId}
       />
 
       <section className="flex md:pl-64 flex-col min-h-screen">

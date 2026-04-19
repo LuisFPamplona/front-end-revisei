@@ -185,9 +185,12 @@ export default function Dashboard() {
 
                   <button
                     onClick={() =>
-                      navigate(
-                        `/subjects?subject=${nextTopic.subjectId}&topic=${nextTopic.id}`,
-                      )
+                      navigate(`/subjects`, {
+                        state: {
+                          subjectId: nextTopic.subjectId,
+                          topicId: nextTopic.id,
+                        },
+                      })
                     }
                     className="bg-gray-50 text-gray-600 font-medium p-2 w-38 text-sm shadow-sm rounded-2xl border border-slate-100 flex items-center justify-center  group-hover:bg-[#806ECD] group-hover:text-white transition-all duration-300 cursor-pointer"
                   >
@@ -256,9 +259,12 @@ export default function Dashboard() {
                   topicsToFocus.map((topic) => (
                     <div
                       onClick={() =>
-                        navigate(
-                          `/subjects?subject=${topic.subjectId}&topic=${topic.id}`,
-                        )
+                        navigate(`/subjects`, {
+                          state: {
+                            subjectId: topic.subjectId,
+                            topicId: topic.id,
+                          },
+                        })
                       }
                       key={topic.id}
                       className="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm flex items-center justify-between group hover:border-[#806ECD] transition-colors"
