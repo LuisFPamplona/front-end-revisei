@@ -60,9 +60,14 @@ const Subjects = () => {
     setSubjectDetail(selected);
     setHomeSelectedTopicId(homeSelectedTopicId);
     setIsSubjectDetailsOpen(true);
+  }, [subjects, subjectId]);
+
+  useEffect(() => {
+    if (!isSubjectDetailsOpen) return;
+    if (!subjectId && !topicId) return;
 
     setSearchParams({});
-  }, [subjects, subjectId, setSearchParams]);
+  }, [isSubjectDetailsOpen, subjectId, topicId, setSearchParams]);
 
   const handleAddSubject = async (name: string) => {
     const data = await createSubject(name);
