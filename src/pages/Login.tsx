@@ -30,7 +30,10 @@ const Login = () => {
 
     setIsSubmitting(true);
 
-    const data = await login({ email: currentEmail, password: currentPassword });
+    const data = await login({
+      email: currentEmail,
+      password: currentPassword,
+    });
 
     if (data.success) {
       toast.success(t("success.login"));
@@ -70,7 +73,7 @@ const Login = () => {
               label={t("form.password")}
               type="password"
               setState={setPassword}
-              placeholder={t("form.placeholders.password")}
+              placeholder={t("form.password")}
             />
 
             <button

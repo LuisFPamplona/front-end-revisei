@@ -108,7 +108,7 @@
     "explore": "Explorar"
   },
   "home": {
-    "greeting": "Boa noite! 👋",
+    "greeting": "Bem-vindo de volta!",
     "subtitle": "Seu progresso atual no",
     "stats": {
       "subjects": "Matérias",
@@ -118,8 +118,16 @@
     "progressTitle": "Progresso geral",
     "mastery": "Domínio",
     "finishedTopics": "{{completed}} de {{total}} tópicos finalizados",
-    "focusNow": "Focar agora 👇",
-    "allCaughtUp": "Tudo em dia por aqui! ✨"
+    "focusNow": "Focar agora",
+    "allCaughtUp": "Tudo em dia por aqui!",
+    "firstStep": {
+      "title": "Comece por aqui",
+      "explore": "Explorar matérias"
+    },
+    "nextAction": {
+      "title": "Próxima ação",
+      "studyNow": "Estudar agora"
+    }
   },
   "subjects": {
     "title": "Minhas matérias",
@@ -197,6 +205,15 @@
     "explore.topicsWillBeAdded": "+ {{count}} tópicos inclusos",
     "explore.topicsCreated": "{{count}} tópicos na sua conta",
     "explore.addedWithTopics": "{{name}} adicionada com {{count}} tópicos!",
-    "explore.partialTopicsWarning": "Matéria adicionada, mas {{count}} tópico(s) não foram criados."
+    "explore.partialTopicsWarning": "Matéria adicionada, mas {{count}} tópico(s) não foram criados.",
+    "categories": {
+      "all": "Todos",
+      "stem": "Exatas",
+      "humanities": "Humanas",
+      "biology": "Biologia",
+      "languages": "Linguagens",
+      "technology": "Tecnologia",
+      "business": "Negócios"
+    }
   }
 }

@@ -18,9 +18,15 @@ interface SubjectDetailsProps {
   subject: Subject;
   toggle: () => void;
   display: boolean;
+  homeSelectedTopicId?: string | null;
 }
 
-const SubjectDetails = ({ subject, toggle, display }: SubjectDetailsProps) => {
+const SubjectDetails = ({
+  subject,
+  toggle,
+  display,
+  homeSelectedTopicId,
+}: SubjectDetailsProps) => {
   const [topics, setTopics] = useState<Topic[]>([]);
   const [isAdding, setIsAdding] = useState(false);
   const [activeTopic, setActiveTopic] = useState<Topic | null>(null);
@@ -42,6 +48,18 @@ const SubjectDetails = ({ subject, toggle, display }: SubjectDetailsProps) => {
       void loadTopics();
     }
   }, [display, subject.id, t]);
+
+  useEffect(() => {
+    const selected: Topic = topics.filter(
+      (t) => t.id === homeSelectedTopicId,
+    )[0];
+
+    if (!selected) {
+      return;
+    }
+
+    setActiveTopic(selected);
+  }, [topics, homeSelectedTopicId]);
 
   const handleAddTopic = async (title: string) => {
     const data = await createTopic(title, subject.id);
@@ -161,7 +179,9 @@ const SubjectDetails = ({ subject, toggle, display }: SubjectDetailsProps) => {
                   topic={topic}
                   handleDelete={handleDelete}
                   handleUpdate={handleUpdate}
-                  onStartReview={(selectedTopic) => setActiveTopic(selectedTopic)}
+                  onStartReview={(selectedTopic) =>
+                    setActiveTopic(selectedTopic)
+                  }
                 />
               ))}
 

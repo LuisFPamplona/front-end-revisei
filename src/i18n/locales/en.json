@@ -119,7 +119,15 @@
     "mastery": "Mastery",
     "finishedTopics": "{{completed}} of {{total}} topics completed",
     "focusNow": "Focus Now ",
-    "allCaughtUp": "Everything is up to date! "
+    "allCaughtUp": "Everything is up to date! ",
+    "firstStep": {
+      "title": "Start from here",
+      "explore": "Explore sujects"
+    },
+    "nextAction": {
+      "title": "DO NEXT",
+      "studyNow": "Study now"
+    }
   },
   "subjects": {
     "title": "My Subjects",
@@ -197,6 +205,15 @@
     "explore.topicsWillBeAdded": "+ {{count}} topics will be added",
     "explore.topicsCreated": "{{count}} topics in your account",
     "explore.addedWithTopics": "{{name}} added with {{count}} topics!",
-    "explore.partialTopicsWarning": "Subject added, but {{count}} topic(s) were not created."
+    "explore.partialTopicsWarning": "Subject added, but {{count}} topic(s) were not created.",
+    "categories": {
+      "all": "All",
+      "stem": "STEM",
+      "humanities": "Humanities",
+      "biology": "Biology",
+      "languages": "Languages",
+      "technology": "Technology",
+      "business": "Business"
+    }
   }
 }
