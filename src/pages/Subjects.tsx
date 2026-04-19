@@ -25,6 +25,10 @@ const Subjects = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
 
+  const [homeSelectedTopicId, setHomeSelectedTopicId] = useState<string | null>(
+    null,
+  );
+
   const subjectId = searchParams.get("subject");
   const topicId = searchParams.get("topic");
 
@@ -54,6 +58,7 @@ const Subjects = () => {
     }
 
     setSubjectDetail(selected);
+    setHomeSelectedTopicId(homeSelectedTopicId);
     setIsSubjectDetailsOpen(true);
 
     setSearchParams({});
