@@ -1,20 +1,18 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { BookOpen, CheckCircle, Clock } from "lucide-react";
-import { getSubjects } from "../services/subjectServices";
-import { getTopics } from "../services/topicServices";
 import type { Subject } from "../types/user";
 import type { Topic } from "../types/topics";
 import Sidebar from "../components/layout/Sidebar";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import { useTranslation } from "react-i18next";
+
+import { t } from "i18next";
+
+import { useDashboardData } from "../hooks/useDashboardData";
+import { findCompletionPercentage } from "../utils/findCompletionPercentage";
 
 export default function Dashboard() {
   const navigate = useNavigate();
-  const [subjects, setSubjects] = useState<Subject[]>([]);
-  const [allTopics, setAllTopics] = useState<
-    (Topic & { subjectName: string })[]
-  >([]);
+  const { subjects, allTopics } = useDashboardData({ t });
   const [nextTopic, setNextTopic] = useState<Topic & { subjectName: string }>({
     id: "",
     title: "",
@@ -23,38 +21,17 @@ export default function Dashboard() {
     subjectName: "",
   });
 
-  const { t } = useTranslation();
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  useEffect(() => {
-    async function loadDashboardData() {
-      const subjectsRes = await getSubjects();
+  const handleScroll = () => {
+    if (scrollRef.current) {
+      const { scrollLeft, offsetWidth } = scrollRef.current;
 
-      if (!subjectsRes.success) {
-        toast.error(subjectsRes.message || t("errors.loadDashboard"));
-        return;
-      }
-
-      setSubjects(subjectsRes.data);
-
-      const topicsPromises = subjectsRes.data.map(async (subj) => {
-        const res = await getTopics(subj.id);
-
-        if (res.success && res.data) {
-          return res.data.map((topic) => ({
-            ...topic,
-            subjectName: subj.name,
-          }));
-        }
-
-        return [];
-      });
-
-      const results = await Promise.all(topicsPromises);
-      setAllTopics(results.flat());
+      const index = Math.round(scrollLeft / offsetWidth);
+      setActiveIndex(index);
     }
-
-    void loadDashboardData();
-  }, [t]);
+  };
 
   const totalSubjects = subjects.length;
   const totalTopics = allTopics.length;
@@ -79,6 +56,42 @@ export default function Dashboard() {
   const onlyPendingTopics = allTopics
     .filter((topic) => topic.status === "pendente")
     .slice(0, 3);
+
+  const [bestSubject, setBestSubject] = useState<Subject | null>(null);
+
+  const donePercent = findCompletionPercentage(
+    bestSubject,
+    allTopics.filter((t) => t.subjectId == bestSubject?.id),
+  );
+
+  useEffect(() => {
+    setBestSubject(() => {
+      const bestSubject = subjects.reduce<Subject | null>(
+        (bestSubject, currentSubject) => {
+          const concludedCount = allTopics.filter(
+            (topic) =>
+              topic.subjectId === currentSubject.id &&
+              topic.status === "concluido",
+          ).length;
+
+          const bestCount = allTopics.filter(
+            (topic) =>
+              topic.subjectId === bestSubject?.id &&
+              topic.status === "concluido",
+          ).length;
+
+          if (!bestSubject || concludedCount > bestCount) {
+            return currentSubject;
+          }
+
+          return bestSubject;
+        },
+        null,
+      );
+
+      return bestSubject;
+    });
+  }, [subjects, allTopics]);
 
   useEffect(() => {
     if (onlyReviewTopics.length > 0) {
@@ -151,54 +164,105 @@ export default function Dashboard() {
                 })}
               </p>
             </div>
-            {nextTopic.title.length > 0 && (
-              <div className="lg:col-span-2 flex flex-col gap-4 md:w-102">
-                <div className="flex items-center justify-between">
-                  <h2 className="text-sm font-semibold text-slate-700 uppercase tracking-widest">
-                    {t("home.nextAction.title")}
-                  </h2>
+            <section>
+              <div className="flex flex-col gap-4">
+                <div
+                  ref={scrollRef}
+                  onScroll={handleScroll}
+                  className="flex gap-4 overflow-x-auto pb-4 no-scrollbar snap-x snap-mandatory md:flex-col md:overflow-visible"
+                >
+                  {nextTopic.title.length > 0 && (
+                    <div className="flex-none w-[92vw] md:w-102 snap-center">
+                      <h2 className="text-sm font-semibold text-slate-700 uppercase mb-4 px-2">
+                        {t("home.nextAction.title")}
+                      </h2>
+
+                      <div className="flex flex-col w-92 gap-6 items-center bg-white p-4 rounded-2xl border border-slate-100 shadow-sm group hover:border-[#806ECD] transition-colors">
+                        <div className="flex w-full justify-between">
+                          <div className="p-3 bg-purple-50 text-[#806ECD] rounded-lg group-hover:bg-[#806ECD] group-hover:text-white transition-colors duration-300">
+                            <BookOpen size={24} />
+                          </div>
+                          <div className="cursor-default max-w-58">
+                            <span className="text-[10px] font-bold text-[#806ECD] uppercase">
+                              {nextTopic.subjectName}
+                            </span>
+                            <h3 className="text-slate-800 font-semibold">
+                              {nextTopic.title}
+                            </h3>
+                          </div>
+                          <div>
+                            <span
+                              className={`text-[10px] px-2 py-1 rounded-full font-bold uppercase ${nextTopic.status === "revisar" ? "bg-orange-100 text-orange-600" : "bg-slate-100 text-slate-600"}`}
+                            >
+                              {t(`topicStatus.${nextTopic.status}`)}
+                            </span>
+                          </div>
+                        </div>
+                        <button
+                          onClick={() =>
+                            navigate(`/subjects`, {
+                              state: {
+                                subjectId: nextTopic.subjectId,
+                                topicId: nextTopic.id,
+                              },
+                            })
+                          }
+                          className="bg-gray-50 text-gray-600 font-medium p-2 w-38 text-sm shadow-sm rounded-2xl border border-slate-100 flex items-center justify-center  group-hover:bg-[#806ECD] group-hover:text-white transition-all duration-300 cursor-pointer"
+                        >
+                          {t("home.nextAction.studyNow")}
+                        </button>
+                      </div>
+                    </div>
+                  )}
+
+                  {subjects.length > 0 && (
+                    <div className="flex-none w-[92vw] md:w-102 snap-center">
+                      <h2 className="text-sm font-semibold text-slate-700 uppercase mb-4 px-2">
+                        Desempenho por matéria
+                      </h2>
+
+                      <div className="flex flex-col w-92 gap-6 items-center bg-white p-4 rounded-2xl border border-slate-100 shadow-sm group hover:border-[#806ECD] transition-colors">
+                        <div className="flex w-full justify-between">
+                          <div className="p-3 bg-purple-50 text-[#806ECD] rounded-lg group-hover:bg-[#806ECD] group-hover:text-white transition-colors duration-300">
+                            <BookOpen size={24} />
+                          </div>
+                          <div className="cursor-default max-w-58">
+                            <span className="text-[10px] font-bold text-[#806ECD] uppercase">
+                              MELHOR MATÉRIA
+                            </span>
+                            <h3 className="text-slate-800 font-semibold">
+                              {bestSubject?.name}
+                            </h3>
+                          </div>
+                          <div>
+                            <span
+                              className={`text-[10px] px-2 py-1 rounded-full font-bold uppercase ${donePercent < 40 ? "bg-orange-100 text-orange-600" : donePercent < 80 ? "bg-blue-100 text-blue-600" : "bg-green-100 text-green-600"}`}
+                            >
+                              {donePercent}%
+                            </span>
+                          </div>
+                        </div>
+                        <button
+                          onClick={() => navigate("/performance")}
+                          className="bg-gray-50 text-gray-600 font-medium p-2 w-38 text-sm shadow-sm rounded-2xl border border-slate-100 flex items-center justify-center  group-hover:bg-[#806ECD] group-hover:text-white transition-all duration-300 cursor-pointer"
+                        >
+                          Ver performance
+                        </button>
+                      </div>
+                    </div>
+                  )}
                 </div>
 
-                <div className="flex flex-col gap-6 items-center bg-white p-4 rounded-2xl border border-slate-100 shadow-sm group hover:border-[#806ECD] transition-colors">
-                  <div className="flex w-full justify-between">
-                    <div className="p-3 bg-purple-50 text-[#806ECD] rounded-lg group-hover:bg-[#806ECD] group-hover:text-white transition-colors duration-300">
-                      <BookOpen size={24} />
-                    </div>
-
-                    <div className="cursor-default max-w-58">
-                      <span className="text-[10px] font-bold text-[#806ECD] uppercase">
-                        {nextTopic.subjectName}
-                      </span>
-                      <h3 className="text-slate-800 font-semibold">
-                        {nextTopic.title}
-                      </h3>
-                    </div>
-
-                    <div>
-                      <span
-                        className={`text-[10px] px-2 py-1 rounded-full font-bold uppercase ${nextTopic.status === "revisar" ? "bg-orange-100 text-orange-600" : "bg-slate-100 text-slate-600"}`}
-                      >
-                        {t(`topicStatus.${nextTopic.status}`)}
-                      </span>
-                    </div>
-                  </div>
-
-                  <button
-                    onClick={() =>
-                      navigate(`/subjects`, {
-                        state: {
-                          subjectId: nextTopic.subjectId,
-                          topicId: nextTopic.id,
-                        },
-                      })
-                    }
-                    className="bg-gray-50 text-gray-600 font-medium p-2 w-38 text-sm shadow-sm rounded-2xl border border-slate-100 flex items-center justify-center  group-hover:bg-[#806ECD] group-hover:text-white transition-all duration-300 cursor-pointer"
-                  >
-                    {t("home.nextAction.studyNow")}
-                  </button>
+                <div className="flex items-center justify-center gap-2 md:hidden">
+                  <div
+                    className={`w-2 h-2 rounded-full transition-all duration-300 ${activeIndex === 0 ? "bg-[#806ECD] w-4" : "bg-slate-200"}`}
+                  />
+                  <div
+                    className={`w-2 h-2 rounded-full transition-all duration-300 ${activeIndex === 1 ? "bg-[#806ECD] w-4" : "bg-slate-200"}`}
+                  />
                 </div>
               </div>
-            )}
+            </section>
           </section>
         )}
 

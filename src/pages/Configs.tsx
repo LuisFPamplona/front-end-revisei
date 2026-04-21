@@ -57,12 +57,12 @@ export default function Configs() {
     <div className="min-h-screen mb-12 md:mb-0 md:ml-64 bg-slate-50/50">
       <Sidebar />
 
-      <main className="p-4 md:p-10 pt-20 md:pt-10 max-w-3xl mx-auto">
-        <header className="mb-8">
-          <h1 className="text-3xl font-bold text-slate-800 tracking-tight">
+      <main className="p-4 md:p-10 md:pt-10 max-w-3xl mx-auto">
+        <header className="mb-8 pt-2 flex flex-col items-center">
+          <h1 className="text-2xl md:text-3xl font-bold text-slate-800 tracking-tight">
             {t("configs.title")}
           </h1>
-          <p className="text-slate-500">{t("configs.subtitle")}</p>
+          <p className="text-slate-500 text-sm pt-2">{t("configs.subtitle")}</p>
         </header>
 
         <div className="space-y-6">

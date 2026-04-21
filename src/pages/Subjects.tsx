@@ -1,14 +1,15 @@
 import { SubjectCard } from "../components/SubjectCard";
 import { useEffect, useState } from "react";
 import type { Subject } from "../types/user";
-import { createSubject, getSubjects } from "../services/subjectServices";
+import { createSubject } from "../services/subjectServices";
 import { Plus, BookPlus, Search } from "lucide-react";
 import SubjectDetails from "../components/SubjectDetails";
 import { AddSubjectForm } from "../components/AddSubjectForm";
 import Sidebar from "../components/layout/Sidebar";
 import { toast } from "react-toastify";
-import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
+import { useDashboardData } from "../hooks/useDashboardData";
+import { t } from "i18next";
 
 const invalidSubject = {
   id: "0",
@@ -19,7 +20,7 @@ const invalidSubject = {
 const Subjects = () => {
   const [isSubjectDetailsOpen, setIsSubjectDetailsOpen] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
-  const [subjects, setSubjects] = useState<Subject[]>([]);
+  const { subjects, setSubjects } = useDashboardData({ t });
   const [searchTerm, setSearchTerm] = useState("");
   const [subjectDetail, setSubjectDetail] = useState<Subject>(invalidSubject); // arrumar esse state aqui pra nao precisar desse invalidSubject
 
@@ -32,24 +33,8 @@ const Subjects = () => {
   const subjectId = location.state?.subjectId ?? null;
   const topicId = location.state?.topicId ?? null;
 
-  const { t } = useTranslation();
-
   const toggleSubjectDetails = () =>
     setIsSubjectDetailsOpen(!isSubjectDetailsOpen);
-
-  useEffect(() => {
-    const loadSubjects = async () => {
-      const data = await getSubjects();
-
-      if (data.success) {
-        setSubjects(data.data);
-      } else {
-        toast.error(data.message || t("errors.loadSubjects"));
-      }
-    };
-
-    void loadSubjects();
-  }, [t]);
 
   useEffect(() => {
     if (!subjectId) return;
@@ -99,7 +84,7 @@ const Subjects = () => {
         <main className="p-4 mb-12 md:p-10 md:pt-10 max-w-7xl w-full mx-auto">
           <div className="flex flex-col items-center md:flex-row md:items-center md:justify-between  gap-4 mb-8">
             <div>
-              <h1 className="text-3xl font-bold text-slate-800 tracking-tight">
+              <h1 className="text-2xl md:text-3xl font-bold text-slate-800 tracking-tight">
                 {t("subjects.title")}
               </h1>
               <div className="h-1.5 w-26 bg-[#806ECD] rounded-full mt-2"></div>

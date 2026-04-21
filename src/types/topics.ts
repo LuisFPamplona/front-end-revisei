@@ -7,3 +7,7 @@ export type Topic = {
 
   subjectId: string;
 };
+
+export type TopicWithSubjectName = Topic & {
+  subjectName: string;
+};
