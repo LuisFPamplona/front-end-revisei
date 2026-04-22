@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import { getSubjects } from "../services/subjectServices";
 import { getTopics } from "../services/topicServices";
 import type { Subject } from "../types/user";
-import type { Topic, TopicWithSubjectName } from "../types/topics";
+import type { TopicWithSubjectName } from "../types/topics";
 
 type UseDashboardDataProps = {
   t: (key: string) => string;
