@@ -3,7 +3,7 @@ import type { ExploreSubject } from "../types/exploreSubjects";
 export const CATEGORY_COLORS: Record<string, { bg: string; text: string }> = {
   Exatas: { bg: "bg-blue-50", text: "text-blue-600" },
   Humanas: { bg: "bg-purple-50", text: "text-purple-600" },
-  Biológicas: { bg: "bg-green-50", text: "text-green-600" },
+  Biologia: { bg: "bg-green-50", text: "text-green-600" },
   Linguagens: { bg: "bg-amber-50", text: "text-amber-600" },
   Tecnologia: { bg: "bg-orange-50", text: "text-orange-600" },
   Negócios: { bg: "bg-pink-50", text: "text-pink-600" },
@@ -318,7 +318,7 @@ export const EXPLORE_SUBJECTS: ExploreSubject[] = [
   {
     id: 17,
     name: "Biologia Celular",
-    category: "Biológicas",
+    category: "Biologia",
     description: "Estrutura e funcionamento das células.",
     topicExamples: ["Membrana", "Organelas", "Divisão celular"],
     topics: [
@@ -337,7 +337,7 @@ export const EXPLORE_SUBJECTS: ExploreSubject[] = [
   {
     id: 18,
     name: "Genética",
-    category: "Biológicas",
+    category: "Biologia",
     description: "Hereditariedade e transmissão de características.",
     topicExamples: ["Genes", "DNA", "Leis de Mendel"],
     topics: [
@@ -356,7 +356,7 @@ export const EXPLORE_SUBJECTS: ExploreSubject[] = [
   {
     id: 19,
     name: "Ecologia",
-    category: "Biológicas",
+    category: "Biologia",
     description: "Relações entre seres vivos e ambiente.",
     topicExamples: ["Cadeias alimentares", "Biomas", "Impactos ambientais"],
     topics: [
@@ -375,7 +375,7 @@ export const EXPLORE_SUBJECTS: ExploreSubject[] = [
   {
     id: 20,
     name: "Anatomia Humana",
-    category: "Biológicas",
+    category: "Biologia",
     description: "Estrutura dos sistemas do corpo humano.",
     topicExamples: [
       "Sistema nervoso",
@@ -398,7 +398,7 @@ export const EXPLORE_SUBJECTS: ExploreSubject[] = [
   {
     id: 21,
     name: "Fisiologia Humana",
-    category: "Biológicas",
+    category: "Biologia",
     description: "Funcionamento dos sistemas do corpo humano.",
     topicExamples: ["Respiração", "Circulação", "Hormônios"],
     topics: [
@@ -417,7 +417,7 @@ export const EXPLORE_SUBJECTS: ExploreSubject[] = [
   {
     id: 22,
     name: "Microbiologia",
-    category: "Biológicas",
+    category: "Biologia",
     description: "Estudo dos microrganismos e suas aplicações.",
     topicExamples: ["Bactérias", "Vírus", "Fungos"],
     topics: [

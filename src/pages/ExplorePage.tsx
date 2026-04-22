@@ -106,12 +106,12 @@ const ExplorePage = () => {
   };
 
   return (
-    <div className="p-6 max-w-5xl mx-auto">
+    <div className="p-6 md:ml-110 max-w-7xl">
       <Sidebar />
 
       <header className="mb-8 md:p-0">
         <div className="flex flex-col items-center md:items-start">
-          <h1 className="text-3xl font-bold text-slate-800 tracking-tight">
+          <h1 className="text-2xl md:text-3xl font-bold text-slate-800 tracking-tight">
             {t("explore.title")}
           </h1>
           <p className="text-sm text-gray-500 mt-1">
