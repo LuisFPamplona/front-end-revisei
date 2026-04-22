@@ -88,16 +88,21 @@ const SubjectDetails = ({
 
   const handleUpdate = async (id: string, status: TopicStatus) => {
     let updatedStatus: TopicStatus;
+    let isoDate;
+    let data;
 
     if (status === "pendente") {
       updatedStatus = "concluido";
+      isoDate = new Date().toISOString();
     } else if (status === "concluido") {
       updatedStatus = "revisar";
+      isoDate = "1970-01-01T00:00:00.000Z";
     } else {
       updatedStatus = "pendente";
+      isoDate = "1970-01-01T00:00:00.000Z";
     }
 
-    const data = await updateTopic(id, updatedStatus);
+    data = await updateTopic(id, updatedStatus, undefined, isoDate);
 
     if (!data.success) {
       toast.error(data.message || t("errors.updateTopic"));

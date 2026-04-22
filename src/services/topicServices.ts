@@ -74,6 +74,7 @@ export const updateTopic = async (
   id: string,
   status?: TopicStatus,
   title?: string,
+  completedAt?: string,
 ): Promise<ApiResponse<Topic>> => {
   try {
     const res = await fetchWithAuth(`${API_URL}/topics/${id}`, {
@@ -81,7 +82,7 @@ export const updateTopic = async (
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ title, status }),
+      body: JSON.stringify({ title, status, completedAt }),
     });
 
     const data: ApiResponse<Topic> = await res.json();
