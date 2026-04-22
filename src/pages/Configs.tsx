@@ -20,15 +20,16 @@ import ProfileSettingsForm from "../components/configs/ProfileSettingsForm";
 import SecuritySettingsForm from "../components/configs/SecuritySettingsForm";
 import DailyGoalForm from "../components/configs/DailyGoalForm";
 import { useTranslation } from "react-i18next";
+import useFetchUser from "../hooks/useFetchUser";
 
 type ActiveModal = "profile" | "security" | "daily-goal" | null;
 
 export default function Configs() {
-  const [user, setUser] = useState<User | null>(null);
+  const { t, i18n } = useTranslation();
+  const { user, setUser } = useFetchUser({ t });
   const [darkMode, setDarkMode] = useState(false);
   const [activeModal, setActiveModal] = useState<ActiveModal>(null);
   const navigate = useNavigate();
-  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     const fetchUser = async () => {

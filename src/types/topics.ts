@@ -4,6 +4,7 @@ export type Topic = {
   id: string;
   title: string;
   status: TopicStatus;
+  completedAt: string;
 
   subjectId: string;
 };

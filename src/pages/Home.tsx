@@ -9,6 +9,7 @@ import { t } from "i18next";
 
 import { useDashboardData } from "../hooks/useDashboardData";
 import { findCompletionPercentage } from "../utils/findCompletionPercentage";
+import DailyGoal from "../components/DailyGoal";
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -17,6 +18,7 @@ export default function Dashboard() {
     id: "",
     title: "",
     status: "pendente",
+    completedAt: "",
     subjectId: "",
     subjectName: "",
   });
@@ -109,13 +111,13 @@ export default function Dashboard() {
           <h1 className="text-2xl md:text-3xl font-bold text-slate-800 tracking-tight">
             {t("home.greeting")}
           </h1>
-          <p className="text-slate-500 text-sm md:text-base font-medium">
+          <div className="text-slate-500 text-sm md:text-base font-medium">
             {t("home.subtitle")}{" "}
             <span className="text-[#806ECD] font-bold">
               {t("common.appName")}
               <div className="h-1.5 w-22 bg-[#806ECD] rounded-full mt-2" />
             </span>
-          </p>
+          </div>
         </header>
 
         {totalSubjects > 0 && (
@@ -163,6 +165,9 @@ export default function Dashboard() {
                   total: totalTopics,
                 })}
               </p>
+              <div className="w-full">
+                <DailyGoal topics={allTopics} />
+              </div>
             </div>
             <section>
               <div className="flex flex-col gap-4">
