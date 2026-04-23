@@ -7,7 +7,7 @@ import SubjectDetails from "../components/SubjectDetails";
 import { AddSubjectForm } from "../components/AddSubjectForm";
 import Sidebar from "../components/layout/Sidebar";
 import { toast } from "react-toastify";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useDashboardData } from "../hooks/useDashboardData";
 import { t } from "i18next";
 
@@ -25,28 +25,56 @@ const Subjects = () => {
   const [subjectDetail, setSubjectDetail] = useState<Subject>(invalidSubject); // arrumar esse state aqui pra nao precisar desse invalidSubject
 
   const location = useLocation();
+  const navigate = useNavigate();
 
   const [homeSelectedTopicId, setHomeSelectedTopicId] = useState<string | null>(
     null,
   );
 
-  const subjectId = location.state?.subjectId ?? null;
-  const topicId = location.state?.topicId ?? null;
+  const openSubjectDetails = (
+    subject: Subject,
+    topicId: string | null = null,
+  ) => {
+    setSubjectDetail(subject);
+    setHomeSelectedTopicId(topicId);
+    setIsSubjectDetailsOpen(true);
+  };
 
-  const toggleSubjectDetails = () =>
-    setIsSubjectDetailsOpen(!isSubjectDetailsOpen);
+  const closeSubjectDetails = () => {
+    setIsSubjectDetailsOpen(false);
+    setHomeSelectedTopicId(null);
+    setSubjectDetail(invalidSubject);
+  };
+
+  const [didConsumeRouteState, setDidConsumeRouteState] = useState(false);
 
   useEffect(() => {
+    const subjectId = location.state?.subjectId;
+    const topicId = location.state?.topicId;
+
+    if (didConsumeRouteState) return;
     if (!subjectId) return;
+    if (!subjects.length) return;
 
-    const selected: Subject = subjects.filter((s) => s.id === subjectId)[0];
-
+    const selected = subjects.find((s) => s.id === subjectId);
     if (!selected) return;
 
     setSubjectDetail(selected);
-    setHomeSelectedTopicId(topicId);
+    setHomeSelectedTopicId(topicId ?? null);
     setIsSubjectDetailsOpen(true);
-  }, [subjects, subjectId, topicId]);
+    setDidConsumeRouteState(true);
+
+    navigate(location.pathname, {
+      replace: true,
+      state: null,
+    });
+  }, [
+    didConsumeRouteState,
+    location.state,
+    location.pathname,
+    navigate,
+    subjects,
+  ]);
 
   const handleAddSubject = async (name: string) => {
     const data = await createSubject(name);
@@ -75,9 +103,10 @@ const Subjects = () => {
 
       <SubjectDetails
         subject={subjectDetail}
-        toggle={toggleSubjectDetails}
+        toggle={closeSubjectDetails}
         display={isSubjectDetailsOpen}
         homeSelectedTopicId={homeSelectedTopicId}
+        clearHomeSelectedTopicId={() => setHomeSelectedTopicId(null)}
       />
 
       <section className="flex md:pl-64 flex-col min-h-screen">
@@ -131,7 +160,7 @@ const Subjects = () => {
                 id={item.id}
                 name={item.name}
                 topicCount={item._count?.topics ?? 0}
-                toggle={toggleSubjectDetails}
+                onOpen={(subject) => openSubjectDetails(subject, null)}
                 setSubject={setSubjectDetail}
                 onDelete={removeSubjectFromState}
               />

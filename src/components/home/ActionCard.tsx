@@ -32,7 +32,7 @@ function ActionCard({
             <BookOpen size={24} />
           </div>
           {topic && (
-            <div className="cursor-default max-w-58">
+            <div className="cursor-default max-w-58 pl-2">
               <span className="text-[10px] font-bold text-[#806ECD] uppercase">
                 {topic.subjectName}
               </span>
