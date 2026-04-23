@@ -2,10 +2,9 @@ import { useTranslation } from "react-i18next";
 import useFetchUser from "../hooks/useFetchUser";
 import type { TopicWithSubjectName } from "../types/topics";
 import { useEffect, useState } from "react";
-import {  PartyPopper } from "lucide-react";
+import { PartyPopper } from "lucide-react";
 
 interface DailyGoalProps {
-
   topics: TopicWithSubjectName[];
 }
 
@@ -31,11 +30,15 @@ function DailyGoal({ topics }: DailyGoalProps) {
           ? Math.round((topicsCompletedToday / dailyGoal) * 100)
           : 0;
 
+      if (completedPercent > 100) {
+        return 100;
+      }
+
       return completedPercent;
     });
   }, [topics]);
 
-  const isDailyGoalCompleted: boolean = dailyGoal === topicsCompletedToday;
+  const isDailyGoalCompleted: boolean = dailyGoal <= topicsCompletedToday;
 
   return (
     <>
