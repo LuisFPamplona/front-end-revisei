@@ -19,12 +19,14 @@ interface SubjectDetailsProps {
   toggle: () => void;
   display: boolean;
   homeSelectedTopicId?: string | null;
+  clearHomeSelectedTopicId: () => void;
 }
 
 const SubjectDetails = ({
   subject,
   toggle,
   display,
+  clearHomeSelectedTopicId,
   homeSelectedTopicId,
 }: SubjectDetailsProps) => {
   const [topics, setTopics] = useState<Topic[]>([]);
@@ -50,16 +52,14 @@ const SubjectDetails = ({
   }, [display, subject.id, t]);
 
   useEffect(() => {
-    const selected: Topic = topics.filter(
-      (t) => t.id === homeSelectedTopicId,
-    )[0];
+    if (!homeSelectedTopicId) return;
 
-    if (!selected) {
-      return;
-    }
+    const selected = topics.find((t) => t.id === homeSelectedTopicId);
+    if (!selected) return;
 
     setActiveTopic(selected);
-  }, [topics, homeSelectedTopicId]);
+    clearHomeSelectedTopicId();
+  }, [topics, homeSelectedTopicId, clearHomeSelectedTopicId]);
 
   const handleAddTopic = async (title: string) => {
     const data = await createTopic(title, subject.id);

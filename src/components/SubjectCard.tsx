@@ -11,7 +11,7 @@ interface SubjectCardProps {
   name: string;
   topicCount?: number;
   onDelete: (id: string) => void;
-  toggle: () => void;
+  onOpen: (subject: Subject) => void;
   setSubject: Dispatch<SetStateAction<Subject>>;
 }
 
@@ -20,7 +20,7 @@ export const SubjectCard = ({
   id,
   name,
   topicCount = 0,
-  toggle,
+  onOpen,
   setSubject,
   onDelete,
 }: SubjectCardProps) => {
@@ -66,7 +66,7 @@ export const SubjectCard = ({
       <button
         onClick={() => {
           setSubject(subject);
-          toggle();
+          onOpen(subject);
         }}
         className="mt-6 w-full flex items-center justify-center gap-2 py-2 px-4 bg-gray-50 text-gray-600 font-medium rounded-lg group-hover:bg-[#806ECD] group-hover:text-white transition-all duration-300 cursor-pointer"
       >
