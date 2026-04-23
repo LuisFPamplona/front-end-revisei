@@ -1,9 +1,9 @@
 # Revisei
 
-Aplicação web para organização de estudos, permitindo ao usuário criar matérias, gerenciar tópicos e acompanhar seu progresso de forma simples e eficiente.
+Fullstack study management application focused on organizing subjects, tracking progress and building consistent study habits.
 
-**Aplicação em produção:** https://revisei.vercel.app/ <br>
-**Backend (API):** https://github.com/LuisFPamplona/back-end-revisei
+**Live Demo:** https://revisei.vercel.app/ <br>
+**Backend API:** https://github.com/LuisFPamplona/back-end-revisei
 
 ---
 
@@ -12,70 +12,94 @@ Aplicação web para organização de estudos, permitindo ao usuário criar mat�
 <p align="center">
   <img src="./docs/demo.gif" width="800"/>
 </p>
-<h3>Telas</h3>
+
+## Screenshots
+
+### Dashboard
+
 <p align="center">
-  <img src="./docs/login.png" width="400"/>
   <img src="./docs/dashboard.png" width="400"/>
+</p>
+
+### Subjects
+
+<p align="center">
   <img src="./docs/subjects.png" width="400"/>
   <img src="./docs/subject.png" width="400"/>
+</p>
+
+### Review Session
+
+<p align="center">
   <img src="./docs/review.png" width="400"/>
+</p>
+
+### Settings
+
+<p align="center">
   <img src="./docs/configs.png" width="400"/>
 </p>
 
 ---
 
-## Funcionalidades
+## Core Features
 
-* Autenticação de usuários (registro e login)
-* Criação e gerenciamento de matérias (subjects)
-* Organização de tópicos por matéria
-* Controle de status dos tópicos (pendente, revisar, concluído)
-* Sessão de revisão com cronômetro
-* Internacionalização (i18n)
-* Sistema de loading global integrado às requisições
-* Feedback ao usuário com notificações (toasts)
-* Configurações de conta:
-
-  * Atualização de perfil
-  * Alteração de senha
-  * Definição de meta diária
+* Subject and topic management
+* Daily study goal system
+* Smart "Next Action" suggestion
+* Performance tracking per subject
+* Study session with timer
+* Internationalization (i18n)
+* Global loading system integrated with API requests
+* User authentication and protected routes
 
 ---
 
-## Arquitetura
+## Architecture
 
-O projeto é dividido em frontend e backend independentes, comunicando-se via API REST.
+The application follows a fullstack architecture:
+
+* Frontend handles UI and state management
+* Backend exposes REST APIs with business logic
+* Prisma is used as ORM for database access
+* PostgreSQL (Neon) stores user data
 
 ### Frontend
 
-* React com TypeScript
-* Vite como bundler
-* Context API para gerenciamento de estado global
-* Sistema de loading global desacoplado da árvore de componentes
-* Internacionalização com i18next
-* Camada de requisição centralizada (`fetchWithAuth`)
+* React + TypeScript
+* Vite
+* Context API for global state
+* i18next for internationalization
+* Centralized request layer (`fetchWithAuth`)
+* Global loading system decoupled from component tree
 
 ### Backend
 
-* Node.js com Express
+* Node.js + Express
 * Prisma ORM
-* Autenticação baseada em JWT
-* Middleware para proteção de rotas
-* Estrutura modular (routes, controllers, services)
+* JWT authentication
+* Route protection via middleware
+* Modular structure (routes, controllers, services)
 
-### Banco de Dados
-
-* PostgreSQL (Neon)
-
-### Infraestrutura
+### Infrastructure
 
 * Vercel (Frontend)
 * Render (Backend)
-* Neon (Banco de dados)
+* Neon (PostgreSQL)
 
 ---
 
-## Tecnologias utilizadas
+## Key Learnings
+
+* Handling real production issues and debugging errors
+* Managing database migrations in production (Neon + Prisma)
+* Designing scalable React component architecture
+* Separating concerns between frontend and backend
+* Building a complete fullstack application from scratch
+
+---
+
+## Technologies
 
 ### Frontend
 
@@ -90,12 +114,12 @@ O projeto é dividido em frontend e backend independentes, comunicando-se via AP
 * Node.js
 * Express
 * Prisma
-* JSON Web Token (JWT)
+* JWT
 * bcrypt
 
 ---
 
-## Estrutura do projeto
+## Project Structure
 
 ### Frontend
 
@@ -122,9 +146,9 @@ src/
 
 ---
 
-## Como rodar o projeto localmente
+## Running Locally
 
-### 1. Clonar os repositórios
+### 1. Clone repositories
 
 ```bash
 git clone https://github.com/LuisFPamplona/front-end-revisei
@@ -140,14 +164,14 @@ cd back-end-revisei
 npm install
 ```
 
-Crie um arquivo `.env`:
+Create `.env`:
 
 ```env
 DATABASE_URL=your_database_url
 JWT_SECRET=your_secret
 ```
 
-Execute:
+Run:
 
 ```bash
 npx prisma db push
@@ -163,13 +187,13 @@ cd front-end-revisei
 npm install
 ```
 
-Crie um arquivo `.env.local`:
+Create `.env.local`:
 
 ```env
 VITE_API_URL=http://localhost:3000
 ```
 
-Execute:
+Run:
 
 ```bash
 npm run dev
@@ -177,50 +201,38 @@ npm run dev
 
 ---
 
-## Variáveis de ambiente
+## Environment Variables
 
 ### Frontend
 
-* `VITE_API_URL`: URL da API backend
+* `VITE_API_URL`: Backend API URL
 
 ### Backend
 
-* `DATABASE_URL`: string de conexão com o banco PostgreSQL
-* `JWT_SECRET`: chave secreta para geração de tokens
+* `DATABASE_URL`: PostgreSQL connection string
+* `JWT_SECRET`: Token secret
 
 ---
 
-## Diferenciais do projeto
+## Highlights
 
-* Sistema de loading global integrado à camada de requisições
-* Separação clara entre frontend e backend
-* Estrutura escalável e modular
-* Internacionalização desde a base da aplicação
-* Deploy completo em ambiente de produção
-
----
-
-## Decisões técnicas
-
-* Uso de `fetchWithAuth` para centralizar autenticação e tratamento de requisições
-* Implementação de loading global desacoplado do React para evitar inconsistências com múltiplas requisições simultâneas
-* Utilização de i18next para suporte a múltiplos idiomas desde o início
-* Separação de responsabilidades no backend (routes, controllers, middlewares)
+* Global loading system integrated with request layer
+* Clear separation between frontend and backend
+* Scalable and modular architecture
+* Full production deployment (frontend, backend, database)
 
 ---
 
-## Próximas melhorias
+## Future Improvements
 
-* Biblioteca de matérias (templates pré-definidos)
-* Dashboard com métricas de progresso
-* Melhorias de responsividade para dispositivos móveis
-* Sistema de notificações mais avançado
+* Study history analytics
+* Enhanced performance insights
+* Improved mobile experience
+* Subject templates (pre-built study structures)
 
 ---
 
-## Autor
+## Author
 
-Luis Pamplona
-
-LinkedIn: www.linkedin.com/in/luis-pamplona-552030310 <br>
-GitHub: @LuisFPamplona
+Luis Pamplona <br>
+LinkedIn: https://www.linkedin.com/in/luis-pamplona-552030310
