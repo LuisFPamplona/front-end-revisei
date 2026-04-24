@@ -64,7 +64,7 @@ function DailyGoal({ topics }: DailyGoalProps) {
 
             <div className="relative w-[70%] h-4 bg-gray-200 rounded-full">
               <div
-                className="bg-[#806ECD] h-4 rounded-full"
+                className="bg-[#806ECD] h-4 rounded-full absolute"
                 style={{ width: `${dailyGoalPercent}%` }}
               />
               <span className="absolute text-[10px] font-bold top-[50%] left-[50%] translate-y-[-50%] translate-x-[-50%] text-slate-700">
