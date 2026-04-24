@@ -1,5 +1,13 @@
 import { useState } from "react";
-import { Menu, X, Home, BookOpen, Settings, LibraryBig } from "lucide-react";
+import {
+  Menu,
+  X,
+  Home,
+  BookOpen,
+  Settings,
+  LibraryBig,
+  ChartBarIncreasing,
+} from "lucide-react";
 import { Link } from "react-router-dom";
 
 import { useTranslation } from "react-i18next";
@@ -66,6 +74,13 @@ const Sidebar = () => {
             >
               <LibraryBig size={20} />
               <span>{t("sidebar.explore")}</span>
+            </Link>
+            <Link
+              to="/performance"
+              className="flex items-center gap-3 p-3 text-gray-700 hover:bg-purple-50 hover:text-[#806ECD] rounded-lg transition-all"
+            >
+              <ChartBarIncreasing size={20} />
+              <span>{t("sidebar.performance")}</span>
             </Link>
             <Link
               to="/configs"

@@ -7,6 +7,7 @@ import Subjects from "../pages/Subjects";
 import Configs from "../pages/Configs";
 import ExplorePage from "../pages/ExplorePage";
 import Performance from "../pages/Performance";
+import History from "../pages/History";
 
 export const AppRoutes = () => {
   return (
@@ -24,6 +25,7 @@ export const AppRoutes = () => {
               <Route path="/configs" element={<Configs />} />
               <Route path="/explore" element={<ExplorePage />} />
               <Route path="/performance" element={<Performance />} />
+              <Route path="/history" element={<History />} />
             </Route>
           </Routes>
         </main>

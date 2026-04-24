@@ -105,7 +105,8 @@
     "subjects": "Subjects",
     "configs": "Settings",
     "logout": "Sign out",
-    "explore": "Explore"
+    "explore": "Explore",
+    "performance": "Progress"
   },
   "home": {
     "greeting": "Welcome back!",
