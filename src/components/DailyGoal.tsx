@@ -3,6 +3,7 @@ import useFetchUser from "../hooks/useFetchUser";
 import type { TopicWithSubjectName } from "../types/topics";
 import { useEffect, useState } from "react";
 import { PartyPopper } from "lucide-react";
+import { formatDateForInput } from "../utils/formatDate";
 
 interface DailyGoalProps {
   topics: TopicWithSubjectName[];
@@ -14,29 +15,22 @@ function DailyGoal({ topics }: DailyGoalProps) {
   const [topicsCompletedToday, setTopicsCompletedToday] = useState(0);
   const [dailyGoalPercent, setDailyGoalPercent] = useState(0);
 
-  const today = new Date().toISOString().slice(0, 10);
-
   const dailyGoal: number = user?.dailyGoal ?? 0;
-  const completedTopics = topics.filter((t) => t.completedAt !== null);
+
   useEffect(() => {
-    setTopicsCompletedToday(
-      completedTopics.filter((t) => t.completedAt.slice(0, 10) === today)
-        .length,
-    );
+    const today = formatDateForInput(new Date());
 
-    setDailyGoalPercent(() => {
-      const completedPercent: number =
-        dailyGoal > 0
-          ? Math.round((topicsCompletedToday / dailyGoal) * 100)
-          : 0;
+    const completedToday = topics.filter(
+      (topic) => formatDateForInput(new Date(topic.completedAt)) === today,
+    ).length;
 
-      if (completedPercent > 100) {
-        return 100;
-      }
+    setTopicsCompletedToday(completedToday);
 
-      return completedPercent;
-    });
-  }, [topics]);
+    const completedPercent =
+      dailyGoal > 0 ? Math.round((completedToday / dailyGoal) * 100) : 0;
+
+    setDailyGoalPercent(completedPercent > 100 ? 100 : completedPercent);
+  }, [topics, dailyGoal]);
 
   const isDailyGoalCompleted: boolean = dailyGoal <= topicsCompletedToday;
 

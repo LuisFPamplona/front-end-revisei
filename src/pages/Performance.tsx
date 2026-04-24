@@ -26,14 +26,14 @@ const Performance = () => {
   return (
     <div className="min-h-screen md:pl-110">
       <Sidebar />
-      <header className="w-full pt-6 flex justify-center md:justify-start">
+      <div className="w-full pt-6 flex justify-center md:justify-start">
         <div className="flex flex-col">
           <h1 className="text-2xl md:text-3xl font-bold text-slate-800 tracking-tight">
             Performance
           </h1>
           <div className="h-1.5 w-22 bg-[#806ECD] rounded-full mt-2" />
         </div>
-      </header>
+      </div>
       <div className="flex justify-end md:justify-start px-4 md:px-0">
         <button
           onClick={() => navigate("/history")}
