@@ -2,7 +2,7 @@ import type { Subject } from "../types/user";
 import Sidebar from "../components/layout/Sidebar";
 import { t } from "i18next";
 import { useDashboardData } from "../hooks/useDashboardData";
-import { ArrowRight, BookOpen } from "lucide-react";
+import { ArrowRight, BookOpen, History } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { findCompletionPercentage } from "../utils/findCompletionPercentage";
 
@@ -34,8 +34,15 @@ const Performance = () => {
           <div className="h-1.5 w-22 bg-[#806ECD] rounded-full mt-2" />
         </div>
       </header>
-
-      <div className="flex flex-col items-center justify-center gap-4 pt-14 pb-14 md:grid md:grid-cols-3 md:w-[80%]">
+      <div className="flex justify-end md:justify-start px-4 md:px-0">
+        <button
+          onClick={() => navigate("/history")}
+          className="mt-6 w-32 flex justify-center gap-2 py-2 px-4 font-medium rounded-lg bg-[#806ECD] text-white cursor-pointer"
+        >
+          Histórico <History />
+        </button>
+      </div>
+      <div className="flex flex-col items-center justify-center gap-4 pt-7 pb-14 md:grid md:grid-cols-3 md:w-[80%]">
         {sortedSubjects.map((s: Subject) => (
           <div className="group flex flex-col w-92 bg-white border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-md hover:border-[#806ECD]/50 transition-all duration-300">
             <section className="flex items-center justify-between gap-4">

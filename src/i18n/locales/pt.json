@@ -105,7 +105,8 @@
     "subjects": "Matérias",
     "configs": "Configurações",
     "logout": "Sair",
-    "explore": "Explorar"
+    "explore": "Explorar",
+    "performance": "Performance"
   },
   "home": {
     "greeting": "Bem-vindo de volta!",
