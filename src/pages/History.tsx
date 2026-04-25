@@ -2,11 +2,11 @@ import { BrushCleaning, Search, Wind } from "lucide-react";
 import HistoryCard from "../components/history/HistoryCard";
 import Header from "../components/layout/Header";
 import Sidebar from "../components/layout/Sidebar";
-import { useDashboardData } from "../hooks/useDashboardData";
 import { t } from "i18next";
 import { useState } from "react";
 import type { TopicWithSubjectName } from "../types/topics";
 import { formatDateForInput } from "../utils/formatDate";
+import { useDashboardData } from "../features/dashboard/hooks/useDashboardData";
 
 export type GroupedTopics = {
   date: string;
@@ -14,7 +14,7 @@ export type GroupedTopics = {
 };
 
 function History() {
-  const { allTopics } = useDashboardData({ t });
+  const { allTopics } = useDashboardData();
   const [searchTerm, setSearchTerm] = useState("");
   const [date, setDate] = useState("");
 

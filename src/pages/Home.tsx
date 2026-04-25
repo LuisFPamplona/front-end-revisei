@@ -5,17 +5,17 @@ import type { TopicWithSubjectName } from "../types/topics";
 import Sidebar from "../components/layout/Sidebar";
 import { useNavigate } from "react-router-dom";
 import { t } from "i18next";
-import { useDashboardData } from "../hooks/useDashboardData";
 import { findCompletionPercentage } from "../utils/findCompletionPercentage";
 import Header from "../components/layout/Header";
 import OverallProgress from "../components/home/OverallProgress";
 import ActionCard from "../components/home/ActionCard";
 import FocusNow from "../components/home/FocusNow";
 import StatCard from "../components/home/StatCard";
+import { useDashboardData } from "../features/dashboard/hooks/useDashboardData";
 
 export default function Dashboard() {
   const navigate = useNavigate();
-  const { subjects, allTopics } = useDashboardData({ t });
+  const { subjects, allTopics } = useDashboardData();
   const [nextTopic, setNextTopic] = useState<TopicWithSubjectName | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);

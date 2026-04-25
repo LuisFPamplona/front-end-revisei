@@ -2,12 +2,13 @@ import { useState, useEffect, useMemo } from "react";
 import { Search, BookOpen, Plus, Check } from "lucide-react";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
-import { createSubject, getSubjects } from "../services/subjectServices";
+import { createSubject } from "../services/subjectServices";
 import { createTopic } from "../services/topicServices";
 import Loading from "../components/Loading";
 import Sidebar from "../components/layout/Sidebar";
 import { CATEGORY_COLORS, EXPLORE_SUBJECTS } from "../data/exploreSubjectsData";
 import type { ExploreSubject } from "../types/exploreSubjects";
+import { useDashboardData } from "../features/dashboard/hooks/useDashboardData";
 
 const ExplorePage = () => {
   const [search, setSearch] = useState("");
@@ -15,6 +16,7 @@ const ExplorePage = () => {
   const [adding, setAdding] = useState<Set<number>>(new Set());
   const [ownedNames, setOwnedNames] = useState<Set<string>>(new Set());
   const { t } = useTranslation();
+  const { subjects } = useDashboardData();
 
   const CATEGORIES = [
     t("explore.categories.all"),
@@ -27,15 +29,7 @@ const ExplorePage = () => {
   ];
 
   useEffect(() => {
-    const loadOwned = async () => {
-      const data = await getSubjects();
-      if (data.success) {
-        setOwnedNames(
-          new Set(data.data.map((s) => s.name.toLowerCase().trim())),
-        );
-      }
-    };
-    void loadOwned();
+    setOwnedNames(new Set(subjects.map((s) => s.name.toLowerCase().trim())));
   }, []);
 
   const visible = useMemo(() => {

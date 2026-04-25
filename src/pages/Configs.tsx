@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   User as UserIcon,
   Moon,
@@ -11,39 +11,23 @@ import {
 } from "lucide-react";
 import Sidebar from "../components/layout/Sidebar";
 import { logout } from "../services/authServices";
-import { getMe } from "../services/userServices";
 import type { User } from "../types/user";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import ConfigModal from "../components/configs/ConfigModal";
 import ProfileSettingsForm from "../components/configs/ProfileSettingsForm";
 import SecuritySettingsForm from "../components/configs/SecuritySettingsForm";
 import DailyGoalForm from "../components/configs/DailyGoalForm";
 import { useTranslation } from "react-i18next";
-import useFetchUser from "../hooks/useFetchUser";
+import { useAuth } from "../features/auth/hooks/useAuth";
 
 type ActiveModal = "profile" | "security" | "daily-goal" | null;
 
 export default function Configs() {
   const { t, i18n } = useTranslation();
-  const { user, setUser } = useFetchUser({ t });
+  const { user, setUser } = useAuth();
   const [darkMode, setDarkMode] = useState(false);
   const [activeModal, setActiveModal] = useState<ActiveModal>(null);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      const data = await getMe();
-
-      if (data.success) {
-        setUser(data.data);
-      } else {
-        toast.error(data.message || t("errors.loadProfile"));
-      }
-    };
-
-    void fetchUser();
-  }, [t]);
 
   const handleLogout = () => {
     logout();
