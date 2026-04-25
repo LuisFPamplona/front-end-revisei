@@ -60,6 +60,10 @@ export const DashboardDataProvider = ({ children }: Props) => {
     await trackLoading(request());
   }, [trackLoading]);
 
+  const refreshDashboardData = useCallback(async () => {
+    await loadDashboardData();
+  }, [loadDashboardData]);
+
   useEffect(() => {
     loadDashboardData();
   }, [loadDashboardData]);
@@ -70,8 +74,9 @@ export const DashboardDataProvider = ({ children }: Props) => {
       setSubjects,
       allTopics,
       setAllTopics,
+      refreshDashboardData,
     }),
-    [subjects, setSubjects, allTopics, setAllTopics],
+    [subjects, allTopics, refreshDashboardData],
   );
 
   return (

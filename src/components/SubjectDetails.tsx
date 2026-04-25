@@ -13,7 +13,7 @@ import { AddTopicForm } from "./AddTopicForm";
 import ReviewSession from "./ReviewSession";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
-import { useLoading } from "../features/loading/hooks/useLoading";
+import { useDashboardData } from "../features/dashboard/hooks/useDashboardData";
 
 interface SubjectDetailsProps {
   subject: Subject;
@@ -34,7 +34,7 @@ const SubjectDetails = ({
   const [isAdding, setIsAdding] = useState(false);
   const [activeTopic, setActiveTopic] = useState<Topic | null>(null);
   const { t } = useTranslation();
-  const { trackLoading } = useLoading();
+  const { refreshDashboardData } = useDashboardData();
 
   useEffect(() => {
     const loadTopics = async () => {
@@ -64,7 +64,7 @@ const SubjectDetails = ({
   }, [topics, homeSelectedTopicId, clearHomeSelectedTopicId]);
 
   const handleAddTopic = async (title: string) => {
-    const data = await trackLoading(createTopic(title, subject.id));
+    const data = await createTopic(title, subject.id);
 
     if (!data.success) {
       toast.error(data.message || t("errors.createTopic"));
@@ -73,11 +73,12 @@ const SubjectDetails = ({
 
     setTopics((prev) => [...prev, data.data]);
     setIsAdding(false);
+    refreshDashboardData();
     toast.success(t("success.topicCreated"));
   };
 
   const handleDelete = async (id: string) => {
-    const data = await trackLoading(deleteTopic(id));
+    const data = await deleteTopic(id);
 
     if (!data.success) {
       toast.error(data.message || t("errors.deleteTopic"));
@@ -85,6 +86,7 @@ const SubjectDetails = ({
     }
 
     setTopics((prev) => prev.filter((topic) => topic.id !== id));
+    refreshDashboardData();
     toast.success(t("success.topicDeleted"));
   };
 
@@ -104,9 +106,7 @@ const SubjectDetails = ({
       isoDate = "1970-01-01T00:00:00.000Z";
     }
 
-    data = await trackLoading(
-      updateTopic(id, updatedStatus, undefined, isoDate),
-    );
+    data = await updateTopic(id, updatedStatus, undefined, isoDate);
 
     if (!data.success) {
       toast.error(data.message || t("errors.updateTopic"));
@@ -118,6 +118,7 @@ const SubjectDetails = ({
         topic.id === id ? { ...topic, status: updatedStatus } : topic,
       ),
     );
+    refreshDashboardData();
     toast.success(t("success.topicUpdated"));
   };
 

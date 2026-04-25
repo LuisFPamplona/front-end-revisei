@@ -10,7 +10,6 @@ import { toast } from "react-toastify";
 import { useLocation, useNavigate } from "react-router-dom";
 import { t } from "i18next";
 import { useDashboardData } from "../features/dashboard/hooks/useDashboardData";
-import { useLoading } from "../features/loading/hooks/useLoading";
 
 const invalidSubject = {
   id: "0",
@@ -21,10 +20,9 @@ const invalidSubject = {
 const Subjects = () => {
   const [isSubjectDetailsOpen, setIsSubjectDetailsOpen] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
-  const { subjects, setSubjects } = useDashboardData();
+  const { subjects, setSubjects, refreshDashboardData } = useDashboardData();
   const [searchTerm, setSearchTerm] = useState("");
   const [subjectDetail, setSubjectDetail] = useState<Subject>(invalidSubject);
-  const { trackLoading } = useLoading();
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -79,11 +77,12 @@ const Subjects = () => {
   ]);
 
   const handleAddSubject = async (name: string) => {
-    const data = await trackLoading(createSubject(name));
+    const data = await createSubject(name);
 
     if (data.success) {
       setSubjects((prev) => [...prev, data.data]);
       setIsAdding(false);
+      refreshDashboardData();
       toast.success(t("success.subjectCreated"));
       return;
     }
