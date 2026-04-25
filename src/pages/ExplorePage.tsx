@@ -16,7 +16,7 @@ const ExplorePage = () => {
   const [adding, setAdding] = useState<Set<number>>(new Set());
   const [ownedNames, setOwnedNames] = useState<Set<string>>(new Set());
   const { t } = useTranslation();
-  const { subjects } = useDashboardData();
+  const { subjects, refreshDashboardData } = useDashboardData();
 
   const CATEGORIES = [
     t("explore.categories.all"),
@@ -88,6 +88,7 @@ const ExplorePage = () => {
       setOwnedNames((prev) =>
         new Set(prev).add(subject.name.toLowerCase().trim()),
       );
+      refreshDashboardData();
     } catch {
       toast.error(t("errors.createSubject"));
     } finally {
