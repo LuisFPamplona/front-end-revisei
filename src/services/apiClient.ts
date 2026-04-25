@@ -1,5 +1,3 @@
-import { trackGlobalLoading } from "./loadingTracker";
-
 export const API_URL = import.meta.env.VITE_API_URL;
 export const AUTH_TOKEN_KEY = "token";
 export const AUTH_EXPIRED_EVENT = "auth:expired";
@@ -37,9 +35,7 @@ export const fetchWithAuth = async (
     headers,
   });
 
-  const response = init.skipGlobalLoading
-    ? await request
-    : await trackGlobalLoading(request);
+  const response = await request;
 
   if (response.status === 401 || response.status === 403) {
     notifyAuthExpired();

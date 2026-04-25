@@ -8,8 +8,8 @@ import { AddSubjectForm } from "../components/AddSubjectForm";
 import Sidebar from "../components/layout/Sidebar";
 import { toast } from "react-toastify";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useDashboardData } from "../hooks/useDashboardData";
 import { t } from "i18next";
+import { useDashboardData } from "../features/dashboard/hooks/useDashboardData";
 
 const invalidSubject = {
   id: "0",
@@ -20,7 +20,7 @@ const invalidSubject = {
 const Subjects = () => {
   const [isSubjectDetailsOpen, setIsSubjectDetailsOpen] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
-  const { subjects, setSubjects } = useDashboardData({ t });
+  const { subjects, setSubjects } = useDashboardData();
   const [searchTerm, setSearchTerm] = useState("");
   const [subjectDetail, setSubjectDetail] = useState<Subject>(invalidSubject); // arrumar esse state aqui pra nao precisar desse invalidSubject
 

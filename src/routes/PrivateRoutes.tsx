@@ -1,32 +1,19 @@
-import { useEffect, useState } from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import { AUTH_EXPIRED_EVENT, validateToken } from "../services/apiClient";
+import { useAuth } from "../features/auth/hooks/useAuth";
+import Loading from "../components/Loading";
 
 const PrivateRoutes = () => {
-  const [tokenIsValid, setTokenIsValid] = useState<boolean | null>(null);
+  const { user, authLoading } = useAuth();
 
-  useEffect(() => {
-    const handleTokenValidation = async () => {
-      const isValid = await validateToken();
+  if (authLoading) {
+    return <Loading fullScreen />;
+  }
 
-      setTokenIsValid(isValid);
-    };
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
 
-    const handleAuthExpired = () => {
-      setTokenIsValid(false);
-    };
-
-    handleTokenValidation();
-    window.addEventListener(AUTH_EXPIRED_EVENT, handleAuthExpired);
-
-    return () => {
-      window.removeEventListener(AUTH_EXPIRED_EVENT, handleAuthExpired);
-    };
-  }, []);
-
-  if (tokenIsValid === null) return null;
-
-  return tokenIsValid ? <Outlet /> : <Navigate to="/login" replace />;
+  return <Outlet />;
 };
 
 export default PrivateRoutes;

@@ -1,13 +1,14 @@
 import type { Subject } from "../types/user";
 import Sidebar from "../components/layout/Sidebar";
 import { t } from "i18next";
-import { useDashboardData } from "../hooks/useDashboardData";
+
 import { ArrowRight, BookOpen, History } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { findCompletionPercentage } from "../utils/findCompletionPercentage";
+import { useDashboardData } from "../features/dashboard/hooks/useDashboardData";
 
 const Performance = () => {
-  const { subjects, allTopics } = useDashboardData({ t });
+  const { subjects, allTopics } = useDashboardData();
 
   const navigate = useNavigate();
 
