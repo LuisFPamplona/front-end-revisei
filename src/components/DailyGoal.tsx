@@ -1,17 +1,15 @@
-import { useTranslation } from "react-i18next";
-import useFetchUser from "../hooks/useFetchUser";
 import type { TopicWithSubjectName } from "../types/topics";
 import { useEffect, useState } from "react";
 import { PartyPopper } from "lucide-react";
 import { formatDateForInput } from "../utils/formatDate";
+import { useAuth } from "../features/auth/hooks/useAuth";
 
 interface DailyGoalProps {
   topics: TopicWithSubjectName[];
 }
 
 function DailyGoal({ topics }: DailyGoalProps) {
-  const { t } = useTranslation();
-  const { user } = useFetchUser({ t });
+  const { user } = useAuth();
   const [topicsCompletedToday, setTopicsCompletedToday] = useState(0);
   const [dailyGoalPercent, setDailyGoalPercent] = useState(0);
 
