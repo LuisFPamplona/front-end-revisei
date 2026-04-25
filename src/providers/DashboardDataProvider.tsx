@@ -12,7 +12,7 @@ import { t } from "i18next";
 import type { TopicWithSubjectName } from "../types/topics";
 import type { Subject } from "../types/user";
 import DashboardDataContext from "../features/dashboard/context/DashboardDataContext";
-import { useLoading } from "../hooks/useLoading";
+import { useLoading } from "../features/loading/hooks/useLoading";
 
 interface Props {
   children: ReactNode;
