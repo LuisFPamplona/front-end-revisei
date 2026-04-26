@@ -9,7 +9,6 @@ import {
   Target,
   Languages,
 } from "lucide-react";
-import Sidebar from "../components/layout/Sidebar";
 import { logout } from "../services/authServices";
 import type { User } from "../types/user";
 import { useNavigate } from "react-router-dom";
@@ -19,6 +18,7 @@ import SecuritySettingsForm from "../components/configs/SecuritySettingsForm";
 import DailyGoalForm from "../components/configs/DailyGoalForm";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../features/auth/hooks/useAuth";
+import Header from "../components/layout/Header";
 
 type ActiveModal = "profile" | "security" | "daily-goal" | null;
 
@@ -40,7 +40,7 @@ export default function Configs() {
 
   return (
     <div className="min-h-screen mb-12 md:mb-0 md:ml-64 bg-slate-50/50">
-      <Sidebar />
+      <Header />
 
       <main className="p-4 md:p-10 md:pt-10 max-w-3xl mx-auto">
         <header className="mb-8 pt-2 flex flex-col items-center">

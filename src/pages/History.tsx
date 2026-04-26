@@ -1,12 +1,12 @@
 import { BrushCleaning, Search, Wind } from "lucide-react";
 import HistoryCard from "../components/history/HistoryCard";
-import Header from "../components/layout/Header";
-import Sidebar from "../components/layout/Sidebar";
 import { t } from "i18next";
 import { useState } from "react";
 import type { TopicWithSubjectName } from "../types/topics";
 import { formatDateForInput } from "../utils/formatDate";
 import { useDashboardData } from "../features/dashboard/hooks/useDashboardData";
+import PageTitle from "../components/layout/PageTitle";
+import Header from "../components/layout/Header";
 
 export type GroupedTopics = {
   date: string;
@@ -58,9 +58,9 @@ function History() {
 
   return (
     <div className="min-h-screen md:ml-64 bg-slate-50/50">
-      <Sidebar />
+      <Header />
       <div className="flex flex-col gap-6 p-4 pb-24 md:p-10 md:pt-10 animate-in fade-in duration-500 max-w-7xl mx-auto">
-        <Header
+        <PageTitle
           title="Histórico"
           subtitle="Veja o seu histórico de tópicos concluídos"
         />

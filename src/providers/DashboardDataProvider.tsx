@@ -75,6 +75,7 @@ export const DashboardDataProvider = ({ children }: Props) => {
       allTopics,
       setAllTopics,
       refreshDashboardData,
+      loadDashboardData,
     }),
     [subjects, allTopics, refreshDashboardData],
   );

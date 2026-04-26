@@ -6,12 +6,14 @@ import Sidebar from "../components/layout/Sidebar";
 import { useNavigate } from "react-router-dom";
 import { t } from "i18next";
 import { findCompletionPercentage } from "../utils/findCompletionPercentage";
-import Header from "../components/layout/Header";
+
 import OverallProgress from "../components/home/OverallProgress";
 import ActionCard from "../components/home/ActionCard";
 import FocusNow from "../components/home/FocusNow";
 import StatCard from "../components/home/StatCard";
 import { useDashboardData } from "../features/dashboard/hooks/useDashboardData";
+import PageTitle from "../components/layout/PageTitle";
+import Header from "../components/layout/Header";
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -98,9 +100,10 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen md:ml-64 bg-slate-50/50">
-      <Sidebar />
+ 
+      <Header />
       <div className="flex flex-col gap-6 p-4 pb-24 md:p-10 md:pt-10 animate-in fade-in duration-500 max-w-7xl mx-auto">
-        <Header title="home.greeting" subtitle="home.subtitle" />
+        <PageTitle title="home.greeting" subtitle="home.subtitle" />
         {totalSubjects > 0 && (
           <section className="flex flex-col gap-6 md:flex-row">
             <OverallProgress

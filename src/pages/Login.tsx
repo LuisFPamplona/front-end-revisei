@@ -6,6 +6,8 @@ import { LogIn, UserPlus } from "lucide-react";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
 import { validateLoginData } from "../utils/validateLoginData";
+import { useAuth } from "../features/auth/hooks/useAuth";
+import { useDashboardData } from "../features/dashboard/hooks/useDashboardData";
 
 const Login = () => {
   const [email, setEmail] = useState<string>("");
@@ -13,6 +15,8 @@ const Login = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const { loadUser } = useAuth();
+  const { loadDashboardData } = useDashboardData();
 
   const loginSubmit = async (
     e: React.FormEvent<HTMLFormElement>,
@@ -36,11 +40,19 @@ const Login = () => {
     });
 
     if (data.success) {
-      toast.success(t("success.login"));
-      navigate("/home");
-    } else {
-      toast.error(data.message || t("errors.login"));
+      try {
+        await loadUser();
+        await loadDashboardData();
+
+        toast.success(t("success.login"));
+        navigate("/home");
+      } catch (error) {
+        toast.error("Erro ao carregar dados do usuário.");
+      }
+      return;
     }
+
+    toast.error(data.message || t("errors.login"));
 
     setIsSubmitting(false);
   };

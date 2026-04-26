@@ -70,8 +70,6 @@ export const createSubject = async (
   }
 };
 
-export const updateSubject = async () => {};
-
 export const deleteSubject = async (
   id: string,
 ): Promise<ApiResponse<Subject>> => {
