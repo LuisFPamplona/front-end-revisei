@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import { BookOpen, CheckCircle, Clock } from "lucide-react";
 import type { Subject } from "../types/user";
 import type { TopicWithSubjectName } from "../types/topics";
-import Sidebar from "../components/layout/Sidebar";
 import { useNavigate } from "react-router-dom";
 import { t } from "i18next";
 import { findCompletionPercentage } from "../utils/findCompletionPercentage";
