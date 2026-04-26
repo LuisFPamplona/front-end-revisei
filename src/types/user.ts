@@ -4,6 +4,7 @@ export type User = {
   subjects: Subject[];
   dailyGoal: number;
   _count?: { subjects: number };
+  gems: number;
 };
 
 export type UpdateUserData = {
@@ -12,6 +13,7 @@ export type UpdateUserData = {
   password?: string;
   currentPassword?: string;
   dailyGoal?: number;
+  gems?: number;
 };
 
 export type Subject = {
@@ -19,4 +21,5 @@ export type Subject = {
   name: string;
   userId: string;
   _count?: { topics: number };
+  isCompleted: boolean;
 };

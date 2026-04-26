@@ -45,6 +45,7 @@ export const AuthProvider = ({ children }: Props) => {
       setUser,
       authLoading,
       isAuthenticated: !!user,
+      loadUser,
     }),
     [user, authLoading],
   );

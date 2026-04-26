@@ -5,16 +5,17 @@ import { createSubject } from "../services/subjectServices";
 import { Plus, BookPlus, Search } from "lucide-react";
 import SubjectDetails from "../components/SubjectDetails";
 import { AddSubjectForm } from "../components/AddSubjectForm";
-import Sidebar from "../components/layout/Sidebar";
 import { toast } from "react-toastify";
 import { useLocation, useNavigate } from "react-router-dom";
 import { t } from "i18next";
 import { useDashboardData } from "../features/dashboard/hooks/useDashboardData";
+import Header from "../components/layout/Header";
 
 const invalidSubject = {
   id: "0",
   name: "0",
   userId: "0",
+  isCompleted: false,
 };
 
 const Subjects = () => {
@@ -100,7 +101,7 @@ const Subjects = () => {
 
   return (
     <div className="min-h-screen bg-slate-50/50">
-      <Sidebar />
+      <Header />
 
       <SubjectDetails
         subject={subjectDetail}

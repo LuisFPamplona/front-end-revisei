@@ -8,6 +8,7 @@ interface DashboardDataContextValue {
   allTopics: TopicWithSubjectName[];
   setAllTopics: Dispatch<SetStateAction<TopicWithSubjectName[]>>;
   refreshDashboardData: () => Promise<void>;
+  loadDashboardData: () => Promise<void>;
 }
 
 const DashboardDataContext = createContext<

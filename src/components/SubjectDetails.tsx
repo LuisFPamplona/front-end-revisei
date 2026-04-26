@@ -14,6 +14,7 @@ import ReviewSession from "./ReviewSession";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
 import { useDashboardData } from "../features/dashboard/hooks/useDashboardData";
+import { useAuth } from "../features/auth/hooks/useAuth";
 
 interface SubjectDetailsProps {
   subject: Subject;
@@ -35,6 +36,11 @@ const SubjectDetails = ({
   const [activeTopic, setActiveTopic] = useState<Topic | null>(null);
   const { t } = useTranslation();
   const { refreshDashboardData } = useDashboardData();
+  const { loadUser } = useAuth();
+
+  if (!subject) {
+    return;
+  }
 
   useEffect(() => {
     const loadTopics = async () => {
@@ -118,6 +124,7 @@ const SubjectDetails = ({
         topic.id === id ? { ...topic, status: updatedStatus } : topic,
       ),
     );
+    loadUser();
     refreshDashboardData();
     toast.success(t("success.topicUpdated"));
   };

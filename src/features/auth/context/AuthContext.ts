@@ -6,6 +6,7 @@ type AuthContextValue = {
   setUser: React.Dispatch<React.SetStateAction<User | null>>;
   authLoading: boolean;
   isAuthenticated: boolean;
+  loadUser: () => Promise<void>;
 };
 
 export const AuthContext = createContext<AuthContextValue | undefined>(
