@@ -5,6 +5,7 @@ export type User = {
   dailyGoal: number;
   _count?: { subjects: number };
   gems: number;
+  experience: number;
 };
 
 export type UpdateUserData = {
@@ -22,4 +23,5 @@ export type Subject = {
   userId: string;
   _count?: { topics: number };
   isCompleted: boolean;
+  source: string;
 };

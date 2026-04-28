@@ -11,10 +11,11 @@ import {
 } from "../services/topicServices";
 import { AddTopicForm } from "./AddTopicForm";
 import ReviewSession from "./ReviewSession";
-import { toast } from "react-toastify";
+import { Slide, toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
 import { useDashboardData } from "../features/dashboard/hooks/useDashboardData";
 import { useAuth } from "../features/auth/hooks/useAuth";
+import Swal from "sweetalert2";
 
 interface SubjectDetailsProps {
   subject: Subject;
@@ -96,10 +97,33 @@ const SubjectDetails = ({
     toast.success(t("success.topicDeleted"));
   };
 
-  const handleUpdate = async (id: string, status: TopicStatus) => {
+  const handleUpdate = async (
+    id: string,
+    status: TopicStatus,
+    seconds?: number,
+  ) => {
     let updatedStatus: TopicStatus;
     let isoDate;
     let data;
+
+    if (seconds != undefined && seconds < 600) {
+      const result = await Swal.fire({
+        title: "Tem certeza?",
+        text: "Tópicos concluídos em menos de 10 minutos recebem apenas 20% de experiência, e não recebe gemas.",
+        icon: "warning",
+        background: "white",
+        color: "#806ECD",
+        showCancelButton: true,
+        confirmButtonColor: "#ef4444",
+        cancelButtonColor: "#6b7280",
+        confirmButtonText: "Sim, concluír.",
+        cancelButtonText: "Cancelar",
+      });
+      if (!result.isConfirmed) {
+        toast.error("Tópico não concluído.");
+        return;
+      }
+    }
 
     if (status === "pendente") {
       updatedStatus = "concluido";
@@ -112,13 +136,30 @@ const SubjectDetails = ({
       isoDate = "1970-01-01T00:00:00.000Z";
     }
 
-    data = await updateTopic(id, updatedStatus, undefined, isoDate);
+    data = await updateTopic(id, updatedStatus, undefined, isoDate, seconds);
 
     if (!data.success) {
       toast.error(data.message || t("errors.updateTopic"));
       return;
     }
 
+    if (
+      updatedStatus === "concluido" &&
+      data.rewards?.gemReward != undefined &&
+      data.rewards?.experienceReward != undefined
+    ) {
+      toast.info(
+        `Recebeu ${data.rewards?.gemReward} gemas e ${data.rewards?.experienceReward} de exp.`,
+        {
+          position: "bottom-right",
+          autoClose: 2000,
+          hideProgressBar: true,
+          draggable: true,
+          theme: "colored",
+          transition: Slide,
+        },
+      );
+    }
     setTopics((prev) =>
       prev.map((topic) =>
         topic.id === id ? { ...topic, status: updatedStatus } : topic,
@@ -195,7 +236,6 @@ const SubjectDetails = ({
                   key={topic.id}
                   topic={topic}
                   handleDelete={handleDelete}
-                  handleUpdate={handleUpdate}
                   onStartReview={(selectedTopic) =>
                     setActiveTopic(selectedTopic)
                   }
@@ -213,8 +253,8 @@ const SubjectDetails = ({
                 <ReviewSession
                   topic={activeTopic}
                   onClose={() => setActiveTopic(null)}
-                  onFinish={(id, status) => {
-                    void handleUpdate(id, status);
+                  onFinish={(id, status, seconds) => {
+                    void handleUpdate(id, status, seconds);
                     setActiveTopic(null);
                   }}
                 />

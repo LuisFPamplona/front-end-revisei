@@ -48,6 +48,7 @@ export const getSpecificSubject = async (
 
 export const createSubject = async (
   name: string,
+  source: string,
 ): Promise<ApiResponse<Subject>> => {
   try {
     const res = await fetchWithAuth(`${API_URL}/subjects`, {
@@ -55,7 +56,7 @@ export const createSubject = async (
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ name }),
+      body: JSON.stringify({ name, source }),
     });
 
     const data: ApiResponse<Subject> = await res.json();

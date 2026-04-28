@@ -1,18 +1,16 @@
 import { BarChart3, Trash2, PlayCircle } from "lucide-react";
-import type { Topic, TopicStatus } from "../types/topics";
+import type { Topic } from "../types/topics";
 import { useTranslation } from "react-i18next";
 
 interface TopicCardProps {
   topic: Topic;
   handleDelete: (id: string) => void;
-  handleUpdate: (id: string, status: TopicStatus) => void;
   onStartReview: (topic: Topic) => void;
 }
 
 export const TopicCard: React.FC<TopicCardProps> = ({
   topic,
   handleDelete,
-  handleUpdate,
   onStartReview,
 }) => {
   const { t } = useTranslation();
@@ -48,8 +46,7 @@ export const TopicCard: React.FC<TopicCardProps> = ({
             <PlayCircle size={22} />
           </button>
           <span
-            onClick={() => handleUpdate(topic.id, topic.status)}
-            className={`text-[10px] w-18 text-center font-bold uppercase px-2 py-1 rounded cursor-pointer ${
+            className={`text-[10px] w-18 text-center font-bold uppercase px-2 py-1 rounded ${
               topic.status === "concluido"
                 ? "bg-green-100 text-green-600"
                 : topic.status === "pendente"

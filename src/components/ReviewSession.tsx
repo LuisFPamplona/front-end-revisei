@@ -12,7 +12,7 @@ import { useTranslation } from "react-i18next";
 interface ReviewSessionProps {
   topic: Topic;
   onClose: () => void;
-  onFinish: (id: string, status: TopicStatus) => void;
+  onFinish: (id: string, status: TopicStatus, seconds?: number) => void;
 }
 
 export default function ReviewSession({
@@ -38,7 +38,7 @@ export default function ReviewSession({
   };
 
   return (
-    <div className="fixed inset-0 bg-white z-100 flex flex-col animate-in fade-in zoom-in-95 duration-300">
+    <div className="fixed inset-0 bg-white z-100 flex flex-col animate-in fade-in zoom-in-95 duration-300 overflow-y-scroll">
       <header className="p-4 border-b flex items-center justify-between bg-slate-50">
         <button
           onClick={onClose}
@@ -89,7 +89,7 @@ export default function ReviewSession({
           </button>
 
           <button
-            onClick={() => onFinish(topic.id, "pendente")}
+            onClick={() => onFinish(topic.id, "pendente", seconds)}
             className="flex items-center justify-center gap-3 py-4 px-2 bg-[#806ECD] text-white font-bold rounded-2xl shadow-lg hover:bg-[#6b5bb3] transition-all cursor-pointer"
           >
             <CheckCircle size={20} />

@@ -16,6 +16,7 @@ const invalidSubject = {
   name: "0",
   userId: "0",
   isCompleted: false,
+  source: "user",
 };
 
 const Subjects = () => {
@@ -78,7 +79,7 @@ const Subjects = () => {
   ]);
 
   const handleAddSubject = async (name: string) => {
-    const data = await createSubject(name);
+    const data = await createSubject(name, "user");
 
     if (data.success) {
       setSubjects((prev) => [...prev, data.data]);
@@ -159,8 +160,6 @@ const Subjects = () => {
               <SubjectCard
                 key={item.id}
                 subject={item}
-                id={item.id}
-                name={item.name}
                 topicCount={item._count?.topics ?? 0}
                 onOpen={(subject) => openSubjectDetails(subject, null)}
                 setSubject={setSubjectDetail}

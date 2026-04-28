@@ -7,8 +7,6 @@ import { useTranslation } from "react-i18next";
 
 interface SubjectCardProps {
   subject: Subject;
-  id: string;
-  name: string;
   topicCount?: number;
   onDelete: (id: string) => void;
   onOpen: (subject: Subject) => void;
@@ -17,8 +15,6 @@ interface SubjectCardProps {
 
 export const SubjectCard = ({
   subject,
-  id,
-  name,
   topicCount = 0,
   onOpen,
   setSubject,
@@ -48,7 +44,7 @@ export const SubjectCard = ({
 
           <div className="cursor-default w-58">
             <h3 className="font-bold text-gray-800 text-lg group-hover:text-[#806ECD] transition-colors">
-              {name}
+              {subject.name}
             </h3>
             <p className="text-sm text-gray-500">
               {t("subjects.topicCount", { count: topicCount })}
@@ -56,12 +52,20 @@ export const SubjectCard = ({
           </div>
         </div>
         <button
-          onClick={() => handleDelete(id)}
+          onClick={() => handleDelete(subject.id)}
           className="bg-gray-50 text-gray-400 p-1 cursor-pointer hover:bg-red-500 hover:text-white transition-all rounded"
         >
           <X />
         </button>
       </div>
+
+      {subject.source === "user" && (
+        <div className="bg-[#806ECD] w-fit px-2 py-1 flex items-center rounded-2xl mt-2">
+          <span className="font-medium text-[10px] text-white">
+            Matéria personalizada
+          </span>
+        </div>
+      )}
 
       <button
         onClick={() => {

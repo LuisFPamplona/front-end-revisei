@@ -52,8 +52,7 @@ const ExplorePage = () => {
     setAdding((prev) => new Set(prev).add(subject.id));
 
     try {
-      // 1. Cria a matéria
-      const subjectData = await createSubject(subject.name);
+      const subjectData = await createSubject(subject.name, "explore");
 
       if (!subjectData.success) {
         toast.error(subjectData.message || t("errors.createSubject"));
