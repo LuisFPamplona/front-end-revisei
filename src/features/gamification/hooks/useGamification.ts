@@ -6,8 +6,16 @@ import { useAuth } from "../../auth/hooks/useAuth";
 function useGamification() {
   const { subjects, allTopics } = useDashboardData();
   const { user } = useAuth();
+  const exp = user?.experience;
 
-  const crowns = subjects.filter((subject) => subject.isCompleted).length;
+  const crowns = useMemo(() => {
+    if (!exp) {
+      return 1;
+    }
+    const level = exp / 100;
+
+    return Math.trunc(level);
+  }, [subjects, allTopics]);
 
   const gems = user?.gems;
 
@@ -52,6 +60,7 @@ function useGamification() {
   }, [completedTopics]);
 
   return {
+    exp,
     crowns,
     streak,
     gems,
