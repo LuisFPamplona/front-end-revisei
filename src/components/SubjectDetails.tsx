@@ -145,11 +145,11 @@ const SubjectDetails = ({
 
     if (
       updatedStatus === "concluido" &&
-      data.rewards?.gemReward != undefined &&
-      data.rewards?.experienceReward != undefined
+      data.rewards?.rewards.gemReward != undefined &&
+      data.rewards?.rewards.experienceReward != undefined
     ) {
       toast.info(
-        `Recebeu ${data.rewards?.gemReward} gemas e ${data.rewards?.experienceReward} de exp.`,
+        `Recebeu ${data.rewards?.rewards.gemReward} gemas e ${data.rewards?.rewards.experienceReward} de exp.`,
         {
           position: "bottom-right",
           autoClose: 2000,
